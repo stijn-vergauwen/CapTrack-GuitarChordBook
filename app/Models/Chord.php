@@ -13,4 +13,8 @@ class Chord extends Model
         'name',
         'description'
     ];
+
+    public static function getAll() {
+        return Chord::get();
+    }
 }
