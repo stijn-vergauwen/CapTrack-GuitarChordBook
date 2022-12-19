@@ -7,7 +7,7 @@
 
     <nav class="flex items-center gap-8 font-semibold">
         <a class="hover:text-blue-600 transition" href="{{ route('home') }}">Home</a>
-        <a class="hover:text-blue-600 transition" href="{{ route('chord.view') }}">Chords</a>
+        <a class="hover:text-blue-600 transition" href="{{ route('chordOverview') }}">Chords</a>
         <a class="hover:text-blue-600 transition" href="{{ route('chordCreator') }}">Create chord</a>
     </nav>
 </header>

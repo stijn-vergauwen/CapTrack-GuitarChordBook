@@ -17,4 +17,8 @@ class Chord extends Model
     public static function getAll() {
         return Chord::get();
     }
+
+    public static function getById(int $id) {
+        return Chord::findOrFail($id);
+    }
 }

@@ -4,7 +4,7 @@
         Create chord
     </x-slot>
 
-    <div class="flex flex-col justify-center items-center min-h-screen">
+    <main class="flex flex-col justify-center items-center min-h-screen">
         <section class="container max-w-2xl p-12 flex flex-col gap-12 bg-white">
             <h2 class="font-bold text-2xl text-center">Create new Chord</h2>
             <form class="flex flex-col justify-between gap-8" action="create" method="post">
@@ -27,5 +27,5 @@
                 </div>
             </form>
         </section>
-    </div>
+    </main>
 </x-layout.base>

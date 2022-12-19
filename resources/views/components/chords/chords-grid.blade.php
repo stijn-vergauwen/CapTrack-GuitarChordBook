@@ -4,7 +4,7 @@
 
     @foreach ($chords as $chord)
         
-        <x-chords.chord-item :name="$chord->name" :description="$chord->description"/>
+        <x-chords.chord-item :id="$chord->id" :name="$chord->name" :description="$chord->description"/>
 
     @endforeach
 
