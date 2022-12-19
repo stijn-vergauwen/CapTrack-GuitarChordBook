@@ -12,7 +12,9 @@ class ChordController extends Controller
     }
 
     public function viewChords() {
-        return view('chords.overview');
+        $chords = Chord::getAll();
+
+        return view('chords.overview', ['chords' => $chords]);
     }
 
     public function createChord(Request $request) {
