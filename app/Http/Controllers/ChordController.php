@@ -11,6 +11,10 @@ class ChordController extends Controller
         return view('chords.create');
     }
 
+    public function viewChords() {
+        return view('chords.overview');
+    }
+
     public function createChord(Request $request) {
         $validated = $request->validate([
             'name' => 'required',
