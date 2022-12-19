@@ -4,28 +4,41 @@
         Create chord
     </x-slot>
 
-    <main class="flex flex-col justify-center items-center min-h-screen">
-        <section class="container max-w-2xl p-12 flex flex-col gap-12 bg-white">
-            <h2 class="font-bold text-2xl text-center">Create new Chord</h2>
-            <form class="flex flex-col justify-between gap-8" action="create" method="post">
-                @csrf
+    <main class="py-12 flex flex-col items-center gap-12">
+        <section class="container max-w-2xl flex flex-col">
 
-                <div>
-                    <label class="block font-semibold text-lg" for="chord-name">Chord name</label>
-                    <input class="border-2 p-2 text-lg w-2/3"
-                        id="chord-name" name="name" type="text" placeholder="Write the name of the chord here">
-                </div>
+            <div class="w-full mb-6">
+                <a class="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 transition"
+                    href="{{ route('chordOverview') }}"
+                >
+                    <- Back to overview
+                </a>
+            </div>
 
-                <div>
-                    <label class="block font-semibold text-lg" for="chord-name">Chord description</label>
-                    <input class="border-2 p-2 text-lg w-2/3"
-                        id="chord-description" name="description" type="text" placeholder="Write a short description here">
-                </div>
+            <div class="p-12 bg-white">
+                <h2 class="mb-8 font-bold text-2xl">Create new Chord</h2>
 
-                <div class="flex justify-end">
-                    <button class="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 transition">Create Chord</button>
-                </div>
-            </form>
+                <form class="flex flex-col justify-between gap-8" action="create" method="post">
+                    @csrf
+
+                    <div>
+                        <label class="block font-semibold text-lg" for="chord-name">Chord name</label>
+                        <input class="border-2 p-2 text-lg w-2/3"
+                            id="chord-name" name="name" type="text" placeholder="Write the name of the chord here">
+                    </div>
+
+                    <div>
+                        <label class="block font-semibold text-lg" for="chord-name">Chord description</label>
+                        <input class="border-2 p-2 text-lg w-2/3"
+                            id="chord-description" name="description" type="text" placeholder="Write a short description here">
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button class="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 transition">Create Chord</button>
+                    </div>
+                </form>
+            </div>
+
         </section>
     </main>
 </x-layout.base>
