@@ -7,7 +7,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/chords', [ChordController::class, 'viewChords'])->name('chord.view');
-
-Route::get('/chords/create', [ChordController::class, 'viewChordCreator'])->name('chordCreator');
-Route::post('/chords/create', [ChordController::class, 'createChord'])->name('chord.create');
+Route::controller(ChordController::class)->group(function () {
+    Route::get('/chords', 'viewChordsOverview')->name('chordOverview');
+    Route::get('/chords/info/{id}','viewChordInfo')->name('chordInfo');
+    Route::get('/chords/create','viewChordCreator')->name('chordCreator');
+    
+    Route::post('/chords/create','createChord')->name('chord.create');
+});
