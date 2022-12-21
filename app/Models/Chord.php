@@ -21,4 +21,11 @@ class Chord extends Model
     public static function getById(int $id) {
         return Chord::findOrFail($id);
     }
+
+    public function updateValues(string $newName, string $newDescription) {
+        $this->name = $newName;
+        $this->description = $newDescription;
+
+        $this->save();
+    }
 }

@@ -23,13 +23,13 @@
 
                     <div>
                         <label class="block font-semibold text-lg" for="chord-name">Chord name</label>
-                        <input class="border-2 p-2 text-lg w-2/3"
+                        <input class="border-2 p-2 text-lg w-full"
                             id="chord-name" name="name" type="text" placeholder="Write the name of the chord here">
                     </div>
 
                     <div>
                         <label class="block font-semibold text-lg" for="chord-name">Chord description</label>
-                        <input class="border-2 p-2 text-lg w-2/3"
+                        <input class="border-2 p-2 text-lg w-full"
                             id="chord-description" name="description" type="text" placeholder="Write a short description here">
                     </div>
 

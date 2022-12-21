@@ -15,12 +15,24 @@
                 </a>
             </div>
 
-            <div class="p-12 bg-white">
-                <p class="font-bold text-lg">Chord name</p>
-                <h2 class="font-bold text-4xl mb-12 text-blue-500">{{ $chord->name }}</h2>
+            <div class="p-12 bg-white flex flex-col gap-12">
+                <div>
+                    <p class="font-bold text-lg">Chord name</p>
+                    <h2 class="font-bold text-4xl text-blue-500">{{ $chord->name }}</h2>
+                </div>
                 
-                <p class="font-bold text-lg">About this chord</p>
-                <p class="text-lg">{{ $chord->description }}</p>
+                <div>
+                    <p class="font-bold text-lg">About this chord</p>
+                    <p class="text-lg">{{ $chord->description }}</p>
+                </div>
+
+                <div class="flex justify-end">
+                    <a class="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 transition"
+                        href="{{ route('chordEditor', ['id' => $chord->id]) }}"
+                    >
+                        Edit chord
+                    </a>
+                </div>
             </div>
 
         </section>
