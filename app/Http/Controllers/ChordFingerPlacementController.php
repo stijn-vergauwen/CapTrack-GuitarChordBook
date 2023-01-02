@@ -38,7 +38,10 @@ class ChordFingerPlacementController extends Controller
         $muteString = isset($stringData['mute_string']);
         $fret = ($muteString ? 0 : (int)$stringData['fret']);
 
-        $fingerPlacement->pivot->updateFingerPlacementId(
+        ChordFingerPlacement::getByChordAndFingerPlacementId(
+            $fingerPlacement->pivot->chord_id,
+            $fingerPlacement->pivot->finger_placement_id
+        )->updateFingerPlacementId(
             FingerPlacement::getOrCreate($fingerPlacement->string, $fret, $muteString)->id
         );
     }

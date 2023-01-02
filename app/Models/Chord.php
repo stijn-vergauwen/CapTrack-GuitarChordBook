@@ -17,7 +17,7 @@ class Chord extends Model
     ];
 
     public function fingerPlacements() {
-        return $this->belongsToMany(FingerPlacement::class, 'chord_finger_placements')->using(ChordFingerPlacement::class);
+        return $this->belongsToMany(FingerPlacement::class, 'chord_finger_placements');
     }
 
     // public function chordFingerPlacements() {

@@ -5,10 +5,9 @@ namespace App\Models;
 use App\Models\Chord;
 use App\Models\FingerPlacement;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class ChordFingerPlacement extends Pivot // I switched this to a Pivot, is this fine? or should I create a new class instead of changing this one?
+class ChordFingerPlacement extends Model
 {
     use HasFactory;
 
@@ -33,8 +32,8 @@ class ChordFingerPlacement extends Pivot // I switched this to a Pivot, is this 
         return ChordFingerPlacement::findOrFail($id);
     }
 
-    public static function getByChordId(int $chordId) : ChordFingerPlacement {
-        return ChordFingerPlacement::where('chord_id', $chordId)->get();
+    public static function getByChordAndFingerPlacementId(int $chordId, int $fingerPlacementId) : ChordFingerPlacement {
+        return ChordFingerPlacement::where('chord_id', $chordId)->where('finger_placement_id', $fingerPlacementId)->first();
     }
 
     public function updateFingerPlacementId(int $newId) {
