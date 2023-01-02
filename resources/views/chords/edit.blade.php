@@ -35,6 +35,31 @@
                             id="chord-description" name="description" type="text" value="{{ $chord->description }}">
                     </div>
 
+                    <div>
+                        <p class="font-semibold text-lg">Finger placement</p>
+
+                        <div class="p-2 inline-flex flex-col gap-1 border-2">
+
+                            <div class="flex gap-6">
+                                <p class="w-16 font-semibold text-lg text-center">String</p>
+                                <p class="w-16 font-semibold text-lg text-center">Fret</p>
+                                <p class="w-16 font-semibold text-lg text-center">Muted?</p>
+                            </div>
+
+                            @foreach ($chord->fingerPlacements as $fingerPlacement)
+
+                                <x-finger-placements.input-field
+                                    :string="$fingerPlacement->string"
+                                    :fret="$fingerPlacement->fret"
+                                    :muteString="$fingerPlacement->mute_string"
+                                />
+                                
+                            @endforeach
+
+                        </div>
+
+                    </div>
+
                     <div class="flex justify-end">
                         <button class="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 transition">Save changes</button>
                     </div>

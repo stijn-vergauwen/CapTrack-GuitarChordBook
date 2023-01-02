@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Chord;
 use Illuminate\Http\Request;
+use App\Models\FingerPlacement;
+use App\Models\ChordFingerPlacement;
+use App\Http\Controllers\ChordFingerPlacementController;
 
 class ChordController extends Controller
 {
@@ -33,12 +36,17 @@ class ChordController extends Controller
         $validated = $request->validate([
             'name' => 'required',
             'description' => 'required',
+            'strings' => 'required',
         ]);
 
-        Chord::create([
+        $newChord = Chord::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
         ]);
+
+        foreach($validated['strings'] as $index => $placementData) {
+            ChordFingerPlacementController::createChordFingerPlacement($placementData, $index, $newChord->id);
+        }
 
         return $this->viewChordsOverview();
     }
@@ -48,11 +56,13 @@ class ChordController extends Controller
             'id' => 'required',
             'name' => 'required',
             'description' => 'required',
+            'strings' => 'required',
         ]);
 
         $chord = Chord::getById($validated['id']);
-
         $chord->updateValues($validated['name'], $validated['description']);
+        
+        ChordFingerPlacementController::updateFingerPlacementOfChord($chord, $validated['strings']);
 
         return $this->viewChordInfo($validated['id']);
     }

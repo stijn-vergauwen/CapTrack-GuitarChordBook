@@ -26,6 +26,20 @@
                     <p class="text-lg">{{ $chord->description }}</p>
                 </div>
 
+                <div>
+                    <p class="font-semibold text-lg">Finger placement</p>
+
+                    @foreach ($chord->fingerPlacements as $fingerPlacement)
+
+                        <x-finger-placements.line-display
+                            :fret="$fingerPlacement->fret"
+                            :muteString="$fingerPlacement->mute_string"
+                        />
+                        
+                    @endforeach
+
+                </div>
+
                 <div class="flex justify-end">
                     <a class="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 transition"
                         href="{{ route('chordEditor', ['id' => $chord->id]) }}"
