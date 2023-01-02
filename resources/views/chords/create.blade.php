@@ -8,11 +8,7 @@
         <section class="container max-w-2xl flex flex-col">
 
             <div class="w-full mb-6">
-                <a class="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 transition"
-                    href="{{ route('chordOverview') }}"
-                >
-                    <- Back to overview
-                </a>
+                <x-link-block :href="route('chordOverview')" text="<- Back to overview" />
             </div>
 
             <div class="p-12 bg-white">
@@ -55,7 +51,7 @@
                     </div>
 
                     <div class="flex justify-end">
-                        <button class="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 transition">Create Chord</button>
+                        <x-button-block text="Create Chord" />
                     </div>
                 </form>
             </div>

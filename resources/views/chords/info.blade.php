@@ -6,13 +6,9 @@
 
     <main class="py-12 flex flex-col items-center gap-12">
         <section class="container max-w-2xl flex flex-col">
-
+            
             <div class="w-full mb-6">
-                <a class="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 transition"
-                    href="{{ route('chordOverview') }}"
-                >
-                    <- Back to overview
-                </a>
+                <x-link-block :href="route('chordOverview')" text="<- Back to overview" />
             </div>
 
             <div class="p-12 bg-white flex flex-col gap-12">
@@ -41,12 +37,9 @@
                 </div>
 
                 <div class="flex justify-end">
-                    <a class="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 transition"
-                        href="{{ route('chordEditor', ['id' => $chord->id]) }}"
-                    >
-                        Edit chord
-                    </a>
+                    <x-link-block :href="route('chordEditor', ['id' => $chord->id])" text="Edit chord" />
                 </div>
+
             </div>
 
         </section>

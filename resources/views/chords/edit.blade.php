@@ -6,13 +6,9 @@
 
     <main class="py-12 flex flex-col items-center gap-12">
         <section class="container max-w-2xl flex flex-col">
-
+            
             <div class="w-full mb-6">
-                <a class="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 transition"
-                    href="{{ route('chordInfo', ['id' => $chord->id]) }}"
-                >
-                    <- Back to chord info
-                </a>
+                <x-link-block :href="route('chordInfo', ['id' => $chord->id])" text="<- Back to chord info"/>
             </div>
 
             <div class="p-12 flex flex-col gap-8 bg-white">
@@ -61,7 +57,7 @@
                     </div>
 
                     <div class="flex justify-end">
-                        <button class="py-2 px-4 font-bold text-white bg-blue-500 hover:bg-blue-600 focus:bg-blue-600 transition">Save changes</button>
+                        <x-button-block text="Save changes"/>
                     </div>
                 </form>
 
