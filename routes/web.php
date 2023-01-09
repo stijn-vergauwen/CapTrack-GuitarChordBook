@@ -23,13 +23,13 @@ Route::controller(ChordController::class)->group(function () {
 
 Route::controller(SongController::class)->group(function () {
     Route::get('/songs', 'viewSongsOverview')->name('songsOverview');
-    // Route::get('/chords/info/{id}','viewChordInfo')->name('chordInfo');
+    Route::get('/songs/info/{id}','viewSongInfo')->name('songInfo');
 
     Route::get('/songs/create','viewSongCreator')->name('songCreator');
 
     // Route::get('/chords/edit/{id}','viewChordEditor')->name('chordEditor');
     
-    Route::post('/songs/create','createSong')->name('song.create');
+    Route::post('/songs/create','handleCreateSong')->name('song.create');
     // Route::post('/chords/edit','updateChord')->name('chord.edit');
     // Route::post('/chords/delete','deleteChord')->name('chord.delete');
 });

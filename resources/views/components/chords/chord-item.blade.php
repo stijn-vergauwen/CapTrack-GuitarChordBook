@@ -1,6 +1,6 @@
 @props(['id', 'name', 'description'])
 
-<div class="aspect-square w-1/3 p-6">
+<div class="aspect-square w-1/3 p-4">
     <a class="w-full h-full flex flex-col items-stretch border-2 border-opacity-0 border-blue-500 hover:border-opacity-100 transition"
         href="{{ route('chordInfo', ['id' => $id]) }}"
     >

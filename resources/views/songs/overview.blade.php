@@ -9,9 +9,7 @@
             All songs
         </h2>
 
-        @foreach ($songs as $song)
-            <p>{{ $song->title }}</p>
-        @endforeach
+        <x-songs.songs-list :songs="$songs" />
         
     </main>
 

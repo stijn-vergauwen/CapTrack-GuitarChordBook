@@ -8,7 +8,7 @@
         <section class="container max-w-2xl flex flex-col">
             
             <div class="w-full mb-6">
-                <x-link-block :href="route('chordOverview')" text="<- Back to overview" />
+                <x-link-block :href="route('chordsOverview')" text="<- Back to overview" />
             </div>
 
             <div class="p-12 bg-white flex flex-col gap-12">
