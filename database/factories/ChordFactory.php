@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,11 @@ class ChordFactory extends Factory
      */
     public function definition()
     {
+        $chordArray = array('A', 'Am', 'B7', 'C', 'Cadd9', 'D', 'Dm', 'E', 'Em', 'F', 'G');
+
         return [
-            //
+            'name' => fake()->unique()->randomElement($chordArray),
+            'description' => fake()->sentence(),
         ];
     }
 }

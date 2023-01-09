@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\FingerPlacement;
+use App\Models\ChordFingerPlacement;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Chord extends Model
 {
@@ -14,7 +16,26 @@ class Chord extends Model
         'description'
     ];
 
+    public function fingerPlacements() {
+        return $this->belongsToMany(FingerPlacement::class, 'chord_finger_placements');
+    }
+
+    // public function chordFingerPlacements() {
+    //     return $this->hasMany(ChordFingerPlacement::class);
+    // }
+
     public static function getAll() {
         return Chord::get();
+    }
+
+    public static function getById(int $id) : Chord {
+        return Chord::findOrFail($id);
+    }
+
+    public function updateValues(string $newName, string $newDescription) {
+        $this->name = $newName;
+        $this->description = $newDescription;
+
+        $this->save();
     }
 }

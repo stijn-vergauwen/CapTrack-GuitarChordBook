@@ -5,9 +5,11 @@
         </a>
     </div>
 
-    <nav class="flex items-center gap-8 font-semibold">
-        <a class="hover:text-blue-600 transition" href="{{ route('home') }}">Home</a>
-        <a class="hover:text-blue-600 transition" href="{{ route('chord.view') }}">Chords</a>
-        <a class="hover:text-blue-600 transition" href="{{ route('chordCreator') }}">Create chord</a>
+    <nav class="flex items-center">
+        <x-link-text :href="route('home')" text="Home" />
+        <x-link-text :href="route('chordsOverview')" text="Chords" />
+        <x-link-text :href="route('chordCreator')" text="Create chord" />
+        <x-link-text :href="route('songsOverview')" text="Songs" />
+        <x-link-text :href="route('songCreator')" text="Create song" />
     </nav>
 </header>
