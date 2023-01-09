@@ -31,6 +31,8 @@
                             id="song-description" name="description" type="text" value="{{ $song->description }}">
                     </div>
 
+                    <x-songs.chords-selector :chords="$chords" />
+
                     <div class="flex justify-end">
                         <x-button-block text="Save changes"/>
                     </div>

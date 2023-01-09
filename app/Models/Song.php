@@ -14,6 +14,14 @@ class Song extends Model
         'description'
     ];
 
+    public static function getAll() {
+        return Song::get();
+    }
+
+    public static function getById(int $id) : Song {
+        return Song::findOrFail($id);
+    }
+
     public function updateValues(string $newTitle, string $newDescription) {
         $this->title = $newTitle;
         $this->description = $newDescription;

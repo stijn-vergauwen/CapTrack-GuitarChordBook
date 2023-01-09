@@ -3,18 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Song;
+use App\Models\Chord;
 use Illuminate\Http\Request;
 
 class SongController extends Controller
 {
     public function viewSongsOverview() {
-        $songs = $this->getAllSongs();
+        $songs = Song::getAll();
 
         return view('songs.overview', ['songs' => $songs]);
     }
 
     public function viewSongInfo(int $id) {
-        $song = $this->getSongById($id);
+        $song = Song::getById($id);
 
         return view('songs.info', ['song' => $song]);
     }
@@ -24,9 +25,10 @@ class SongController extends Controller
     }
 
     public function viewSongEditor(int $id) {
-        $song = $this->getSongById($id);
+        $song = Song::getById($id);
+        $chords = Chord::getAll();
 
-        return view('songs.edit', ['song' => $song]);
+        return view('songs.edit', ['song' => $song, 'chords' => $chords]);
     }
 
     public function handleCreateSong(Request $request) {
@@ -35,7 +37,7 @@ class SongController extends Controller
             'description' => 'required',
         ]);
 
-        $this->createSong($validated['title'], $validated['description']);
+        $this->createSong($request->title, $request->description);
 
         return $this->viewSongsOverview();
     }
@@ -47,7 +49,7 @@ class SongController extends Controller
             'description' => 'required',
         ]);
 
-        $this->updateSong($validated['id'], $validated['title'], $validated['description']);
+        $this->updateSong($request->id, $request->title, $request->description);
 
         return $this->viewSongInfo($validated['id']);
     }
@@ -57,17 +59,9 @@ class SongController extends Controller
             'id' => 'required',
         ]);
 
-        $this->deleteSong($validated['id']);
+        $this->deleteSong($request->id);
 
         return $this->viewSongsOverview();
-    }
-
-    private function getAllSongs() {
-        return Song::get();
-    }
-
-    private function getSongById(int $id) : Song {
-        return Song::findOrFail($id);
     }
 
     private function createSong(string $title, string $description) : Song {
@@ -80,12 +74,12 @@ class SongController extends Controller
     }
 
     private function updateSong(int $id, string $title, string $description) {
-        $song = $this->getSongById($id);
+        $song = Song::getById($id);
         $song->updateValues($title, $description);
     }
 
     private function deleteSong(int $id) {
-        $song = $this->getSongById($id);
+        $song = Song::getById($id);
         $song->delete();
     }
     

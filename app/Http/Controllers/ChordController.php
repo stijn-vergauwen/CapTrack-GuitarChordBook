@@ -32,26 +32,19 @@ class ChordController extends Controller
         return view('chords.edit', ['chord' => $chord]);
     }
 
-    public function createChord(Request $request) {
+    public function handleCreateChord(Request $request) {
         $validated = $request->validate([
             'name' => 'required',
             'description' => 'required',
             'strings' => 'required',
         ]);
 
-        $newChord = Chord::create([
-            'name' => $validated['name'],
-            'description' => $validated['description'],
-        ]);
-
-        foreach($validated['strings'] as $index => $placementData) {
-            ChordFingerPlacementController::createChordFingerPlacement($placementData, $index, $newChord->id);
-        }
+        $this->createChord($request->name, $request->description, $request->strings);
 
         return $this->viewChordsOverview();
     }
 
-    public function updateChord(Request $request) {
+    public function handleUpdateChord(Request $request) {
         $validated = $request->validate([
             'id' => 'required',
             'name' => 'required',
@@ -59,24 +52,45 @@ class ChordController extends Controller
             'strings' => 'required',
         ]);
 
-        $chord = Chord::getById($validated['id']);
-        $chord->updateValues($validated['name'], $validated['description']);
-        
-        ChordFingerPlacementController::updateFingerPlacementOfChord($chord, $validated['strings']);
+        $this->updateChord($request->id, $request->name, $request->description, $request->strings);
 
         return $this->viewChordInfo($validated['id']);
     }
 
-    public function deleteChord(Request $request) {
+    public function handleDeleteChord(Request $request) {
         $validated = $request->validate([
             'id' => 'required',
         ]);
 
-        $chord = Chord::getById($validated['id']);
-
-        ChordFingerPlacementController::deleteFingerPlacementOfChord($chord->id);
-        $chord->delete();
+        $this->deleteChord($request->id);
 
         return $this->viewChordsOverview();
+    }
+
+    private function createChord(string $name, string $description, array $strings) : Chord {
+        $newChord = Chord::create([
+            'name' => $name,
+            'description' => $description,
+        ]);
+
+        foreach($strings as $index => $placementData) {
+            ChordFingerPlacementController::createChordFingerPlacement($placementData, $index, $newChord->id);
+        }
+
+        return $newChord;
+    }
+
+    private function updateChord(int $id, string $name, string $description, array $strings) {
+        $chord = Chord::getById($id);
+        $chord->updateValues($name, $description);
+        
+        ChordFingerPlacementController::updateFingerPlacementOfChord($chord, $strings);
+    }
+
+    private function deleteChord(int $id) {
+        $chord = Chord::getById($id);
+
+        ChordFingerPlacementController::deleteFingerPlacementOfChord($id);
+        $chord->delete();
     }
 }
