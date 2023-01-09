@@ -27,7 +27,7 @@ Route::controller(SongController::class)->group(function () {
 
     Route::get('/songs/create','viewSongCreator')->name('songCreator');
 
-    // Route::get('/chords/edit/{id}','viewChordEditor')->name('chordEditor');
+    Route::get('/songs/edit/{id}','viewSongEditor')->name('songEditor');
     
     Route::post('/songs/create','handleCreateSong')->name('song.create');
     // Route::post('/chords/edit','updateChord')->name('chord.edit');
