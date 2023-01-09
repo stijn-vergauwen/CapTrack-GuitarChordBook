@@ -30,6 +30,6 @@ Route::controller(SongController::class)->group(function () {
     Route::get('/songs/edit/{id}','viewSongEditor')->name('songEditor');
     
     Route::post('/songs/create','handleCreateSong')->name('song.create');
-    // Route::post('/chords/edit','updateChord')->name('chord.edit');
-    // Route::post('/chords/delete','deleteChord')->name('chord.delete');
+    Route::post('/songs/edit','handleUpdateSong')->name('song.edit');
+    Route::post('/songs/delete','handleDeleteSong')->name('song.delete');
 });

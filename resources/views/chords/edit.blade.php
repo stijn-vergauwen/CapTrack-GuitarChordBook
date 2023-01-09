@@ -26,7 +26,7 @@
                     </div>
 
                     <div>
-                        <label class="block font-semibold text-lg" for="chord-name">Chord description</label>
+                        <label class="block font-semibold text-lg" for="chord-description">Chord description</label>
                         <input class="border-2 p-2 text-lg w-full"
                             id="chord-description" name="description" type="text" value="{{ $chord->description }}">
                     </div>
