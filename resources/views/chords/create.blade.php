@@ -8,7 +8,7 @@
         <section class="container max-w-2xl flex flex-col">
 
             <div class="w-full mb-6">
-                <x-link-block :href="route('chordOverview')" text="<- Back to overview" />
+                <x-link-block :href="route('chordsOverview')" text="<- Back to overview" />
             </div>
 
             <div class="p-12 bg-white">
@@ -24,7 +24,7 @@
                     </div>
 
                     <div>
-                        <label class="block font-semibold text-lg" for="chord-name">Chord description</label>
+                        <label class="block font-semibold text-lg" for="chord-description">Chord description</label>
                         <input class="border-2 p-2 text-lg w-full"
                             id="chord-description" name="description" type="text" placeholder="Write a short description here">
                     </div>
