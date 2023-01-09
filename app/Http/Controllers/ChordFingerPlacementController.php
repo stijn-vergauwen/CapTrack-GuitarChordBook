@@ -34,6 +34,10 @@ class ChordFingerPlacementController extends Controller
         }
     }
 
+    public static function deleteFingerPlacementOfChord(int $chordId) {
+        $deleted = ChordFingerPlacement::where('chord_id', $chordId)->delete();
+    }
+
     private static function updateChordFingerPlacement(FingerPlacement $fingerPlacement, array $stringData) {
         $muteString = isset($stringData['mute_string']);
         $fret = ($muteString ? 0 : (int)$stringData['fret']);

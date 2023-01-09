@@ -74,6 +74,7 @@ class ChordController extends Controller
 
         $chord = Chord::getById($validated['id']);
 
+        ChordFingerPlacementController::deleteFingerPlacementOfChord($chord->id);
         $chord->delete();
 
         return $this->viewChordsOverview();
