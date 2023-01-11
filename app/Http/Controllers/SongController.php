@@ -43,6 +43,8 @@ class SongController extends Controller
     }
 
     public function handleUpdateSong(Request $request) {
+        // dd(json_decode($request->chords));
+
         $validated = $request->validate([
             'id' => 'required',
             'title' => 'required',

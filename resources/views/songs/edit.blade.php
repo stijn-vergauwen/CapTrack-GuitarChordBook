@@ -4,6 +4,10 @@
         Edit song
     </x-slot>
 
+    <x-slot:resources>
+        @vite('resources/js/chordsSelector.js')
+    </x-slot>
+
     <main class="py-12 flex flex-col items-center gap-12">
         <section class="container max-w-2xl flex flex-col">
             
@@ -31,8 +35,12 @@
                             id="song-description" name="description" type="text" value="{{ $song->description }}">
                     </div>
 
-                    <x-songs.chords-selector :chords="$chords" />
+                    <div>
+                        <p class="block font-semibold text-lg">Select chords used in this song</p>
 
+                        <x-songs.chords-selector :chords="$chords" />
+                    </div>
+                        
                     <div class="flex justify-end">
                         <x-button-block text="Save changes"/>
                     </div>
