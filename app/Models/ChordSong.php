@@ -22,9 +22,9 @@ class ChordSong extends Model
         return ChordSong::findOrFail($id);
     }
 
-    // public static function getBySongAndChordId(int $songId, int $chordId) : ChordSong {
-    //     return ChordSong::where('song_id', $songId)->where('chord_id', $chordId)->first();
-    // }
+    public static function getBySongAndChordId(int $songId, int $chordId) : ChordSong {
+        return ChordSong::where('song_id', $songId)->where('chord_id', $chordId)->first();
+    }
 
     public function updateChordId(int $newId) {
         $this->chord_id = $newId;

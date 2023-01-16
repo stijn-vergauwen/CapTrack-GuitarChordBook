@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Chord;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Song extends Model
 {
@@ -13,6 +14,10 @@ class Song extends Model
         'title',
         'description'
     ];
+
+    public function chords() {
+        return $this->belongsToMany(Chord::class, 'chord_songs');
+    }
 
     public static function getAll() {
         return Song::get();

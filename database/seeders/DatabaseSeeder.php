@@ -97,7 +97,7 @@ class DatabaseSeeder extends Seeder
 
         // dummy data generation, but these chords don't make sense so i don't want to use it atm
 
-        Chord::factory(5)->create();
+        Chord::factory(10)->create();
 
         // FingerPlacement::factory(10)->create();
 

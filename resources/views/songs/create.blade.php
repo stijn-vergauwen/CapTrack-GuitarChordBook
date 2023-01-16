@@ -4,6 +4,10 @@
         Create chord
     </x-slot>
 
+    <x-slot:resources>
+        @vite('resources/js/chordsSelector.js')
+    </x-slot>
+
     <main class="py-12 flex flex-col items-center gap-12">
         <section class="container max-w-2xl flex flex-col">
 
@@ -27,6 +31,12 @@
                         <label class="block font-semibold text-lg" for="song-description">Song description</label>
                         <input class="border-2 p-2 text-lg w-full"
                             id="song-description" name="description" type="text" placeholder="Write a short description here">
+                    </div>
+
+                    <div>
+                        <p class="block font-semibold text-lg">Select chords used in this song</p>
+
+                        <x-songs.chords-selector :allChords="$allChords" />
                     </div>
 
                     <div class="flex justify-end">

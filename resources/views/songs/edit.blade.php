@@ -38,7 +38,7 @@
                     <div>
                         <p class="block font-semibold text-lg">Select chords used in this song</p>
 
-                        <x-songs.chords-selector :chords="$chords" />
+                        <x-songs.chords-selector :allChords="$allChords" :selectedChords="$selectedChords" />
                     </div>
                         
                     <div class="flex justify-end">
