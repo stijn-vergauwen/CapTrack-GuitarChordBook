@@ -97,9 +97,6 @@ class SongController extends Controller
     }
 
     private function deleteSong(int $id) {
-        // get chordsongs by song id
-        // delete them
-
         $song = Song::getById($id);
 
         $chordSongController = new ChordSongController();

@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 class ChordSongController extends Controller
 {
     public function createChordsOfSong(int $songId, array $requestChordIds) {
-        // loop through chords param
-        // make new chordSong with song id new song, and chord id looped value
-
         foreach($requestChordIds as $chordId) {
             ChordSong::create([
                 'chord_id' => $chordId,
@@ -20,18 +17,6 @@ class ChordSongController extends Controller
     }
 
     public function updateChordsOfSong(int $songId, array $chordIdsOfSong, array $requestChordIds) {
-        // make array chordsToDelete, set to copy of chordsOfSong
-        // loop through requestchords array
-        // remove chordId from chordsToDelete
-        // loop through chordsongs of song
-        // if new chord, create chord
-        // if unchanged, continue
-        // end loops
-        // loop through chordIdsToDelete
-        // delete chordSong with id
-
-        // dd($chordsOfSong, $requestChordIds);
-
         $chordSongIdsToDelete = $chordIdsOfSong;
 
         foreach($requestChordIds as $requestChordId) {
@@ -52,7 +37,7 @@ class ChordSongController extends Controller
 
     public function deleteChordsOfSong(int $songId, array $chordIdsOfSong) {
         foreach($chordIdsOfSong as $chordId) {
-            deleteChordSongById($songId, $chordId);
+            $this->deleteChordSongById($songId, $chordId);
         }
     }
 

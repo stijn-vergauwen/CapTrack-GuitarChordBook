@@ -91,6 +91,9 @@ class ChordController extends Controller
         $chord = Chord::getById($id);
 
         ChordFingerPlacementController::deleteFingerPlacementOfChord($id);
+
+        // TODO: delete chordSong entries with this chord
+
         $chord->delete();
     }
 }
