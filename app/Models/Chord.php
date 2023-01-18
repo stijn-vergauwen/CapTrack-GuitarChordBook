@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Song;
 use App\Models\FingerPlacement;
 use App\Models\ChordFingerPlacement;
 use Illuminate\Database\Eloquent\Model;
@@ -18,6 +19,10 @@ class Chord extends Model
 
     public function fingerPlacements() {
         return $this->belongsToMany(FingerPlacement::class, 'chord_finger_placements');
+    }
+
+    public function songs() {
+        return $this->belongsToMany(Song::class, 'chord_songs');
     }
 
     // public function chordFingerPlacements() {
