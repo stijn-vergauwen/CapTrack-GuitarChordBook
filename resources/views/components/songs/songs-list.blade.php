@@ -4,7 +4,7 @@
 
     @foreach ($songs as $song)
 
-        <x-songs.song-item :id="$song->id" :title="$song->title" :description="$song->description" />
+        <x-songs.song-item :id="$song->id" :title="$song->title" :description="$song->description" :chords="$song->chords" />
 
     @endforeach
 

@@ -26,6 +26,20 @@
                     <x-link-block :href="route('songEditor', ['id' => $song->id])" text="Edit song" />
                 </div>
 
+                <div>
+                    <p class="font-bold text-lg">Chords in this song</p>
+
+                    <div class="flex gap-4">
+                        @foreach ($selectedChords as $selectedChord)
+                    
+                            <a class="px-4 py-1 bg-neutral-100" href="{{ route('chordInfo', ['id' => $selectedChord->id]) }}">
+                                <p class="font-bold text-xl text-blue-500">{{ $selectedChord->name }}</p>
+                            </a>
+    
+                        @endforeach
+                    </div>
+                </div>
+
             </div>
 
         </section>

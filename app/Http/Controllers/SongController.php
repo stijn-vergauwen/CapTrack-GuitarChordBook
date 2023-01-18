@@ -3,39 +3,47 @@
 namespace App\Http\Controllers;
 
 use App\Models\Song;
+use App\Models\Chord;
 use Illuminate\Http\Request;
 
 class SongController extends Controller
 {
     public function viewSongsOverview() {
-        $songs = $this->getAllSongs();
+        $songs = Song::getAll();
 
         return view('songs.overview', ['songs' => $songs]);
     }
 
     public function viewSongInfo(int $id) {
-        $song = $this->getSongById($id);
+        $song = Song::getById($id);
 
-        return view('songs.info', ['song' => $song]);
+        return view('songs.info', ['song' => $song, 'selectedChords' => $song->chords]);
     }
     
     public function viewSongCreator() {
-        return view('songs.create');
+        $chords = Chord::getAll();
+
+        return view('songs.create', ['allChords' => $chords]);
     }
 
     public function viewSongEditor(int $id) {
-        $song = $this->getSongById($id);
+        $song = Song::getById($id);
+        $allChords = Chord::getAll();
+        $selectedChords = $this->getChordIdsAsString($song->chords);
 
-        return view('songs.edit', ['song' => $song]);
+        return view('songs.edit', ['song' => $song, 'allChords' => $allChords, 'selectedChords' => $selectedChords]);
     }
 
     public function handleCreateSong(Request $request) {
         $validated = $request->validate([
             'title' => 'required',
             'description' => 'required',
+            'chords' => 'required',
         ]);
 
-        $this->createSong($validated['title'], $validated['description']);
+        // dd($request->chords);
+
+        $this->createSong($request->title, $request->description, $this->requestChordsToArray($request->chords));
 
         return $this->viewSongsOverview();
     }
@@ -45,9 +53,10 @@ class SongController extends Controller
             'id' => 'required',
             'title' => 'required',
             'description' => 'required',
+            'chords' => 'required',
         ]);
 
-        $this->updateSong($validated['id'], $validated['title'], $validated['description']);
+        $this->updateSong($request->id, $request->title, $request->description, $this->requestChordsToArray($request->chords));
 
         return $this->viewSongInfo($validated['id']);
     }
@@ -57,36 +66,65 @@ class SongController extends Controller
             'id' => 'required',
         ]);
 
-        $this->deleteSong($validated['id']);
+        $this->deleteSong($request->id);
 
         return $this->viewSongsOverview();
     }
 
-    private function getAllSongs() {
-        return Song::get();
-    }
+    private function createSong(string $title, string $description, array $chords) : Song {
+        // dd($chords);
 
-    private function getSongById(int $id) : Song {
-        return Song::findOrFail($id);
-    }
-
-    private function createSong(string $title, string $description) : Song {
         $newSong = Song::create([
             'title' => $title,
             'description' => $description,
         ]);
 
+        $chordSongController = new ChordSongController();
+        $chordSongController->createChordsOfSong($newSong->id, $chords);
+
         return $newSong;
     }
 
-    private function updateSong(int $id, string $title, string $description) {
-        $song = $this->getSongById($id);
+    private function updateSong(int $id, string $title, string $description, array $requestChords) {
+        $song = Song::getById($id);
+
+        // dd($request->chords);
+
+        $chordSongController = new ChordSongController();
+        $chordSongController->updateChordsOfSong($song->id, $this->getCollectionIdsAsArray($song->chords), $requestChords);
+
         $song->updateValues($title, $description);
     }
 
     private function deleteSong(int $id) {
-        $song = $this->getSongById($id);
+        $song = Song::getById($id);
+
+        $chordSongController = new ChordSongController();
+        $chordSongController->deleteChordsOfSong($song->id, $this->getCollectionIdsAsArray($song->chords));
+
         $song->delete();
+    }
+
+    private function requestChordsToArray(string $chordsJson) : array {
+        return json_decode($chordsJson) ?? [];
+    }
+
+    private function getChordIdsAsString($chords) : string {
+        $chordIds = [];
+        foreach($chords as $chord) {
+            array_push($chordIds, $chord->id);
+        }
+        return json_encode($chordIds);
+    }
+
+    private function getCollectionIdsAsArray($inputCollection) : array {
+        $ids = [];
+
+        foreach($inputCollection as $item) {
+            array_push($ids, $item->id);
+        }
+
+        return $ids;
     }
     
 }

@@ -16,9 +16,9 @@ Route::controller(ChordController::class)->group(function () {
 
     Route::get('/chords/edit/{id}','viewChordEditor')->name('chordEditor');
     
-    Route::post('/chords/create','createChord')->name('chord.create');
-    Route::post('/chords/edit','updateChord')->name('chord.edit');
-    Route::post('/chords/delete','deleteChord')->name('chord.delete');
+    Route::post('/chords/create','handleCreateChord')->name('chord.create');
+    Route::post('/chords/edit','handleUpdateChord')->name('chord.edit');
+    Route::post('/chords/delete','handleDeleteChord')->name('chord.delete');
 });
 
 Route::controller(SongController::class)->group(function () {

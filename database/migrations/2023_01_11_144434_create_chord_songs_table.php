@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('chords', function (Blueprint $table) {
+        Schema::create('chord_songs', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('chord_id');
+            $table->foreignId('song_id');
             $table->timestamps();
-            $table->string('name')->unique();
-            $table->string('description');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('chords');
+        Schema::dropIfExists('chord_songs');
     }
 };

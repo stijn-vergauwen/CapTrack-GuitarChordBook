@@ -17,7 +17,7 @@ class ChordFactory extends Factory
      */
     public function definition()
     {
-        $chordArray = array('A', 'Am', 'B7', 'C', 'Cadd9', 'D', 'Dm', 'E', 'Em', 'F', 'G');
+        $chordArray = array('A', 'Am', 'B7', 'Cadd9', 'D', 'Dm', 'E', 'Em', 'F', 'G', 'Dsus2', 'Dsus4', 'Cmaj7', 'Asus2', 'Asus4');
 
         return [
             'name' => fake()->unique()->randomElement($chordArray),
