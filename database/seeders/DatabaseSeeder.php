@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Song;
 use App\Models\Chord;
 use App\Models\FingerPlacement;
 use Illuminate\Database\Seeder;
@@ -97,7 +98,9 @@ class DatabaseSeeder extends Seeder
 
         // dummy data generation, but these chords don't make sense so i don't want to use it atm
 
-        Chord::factory(10)->create();
+        Chord::factory(6)->create();
+
+        Song::factory(4)->create();
 
         // FingerPlacement::factory(10)->create();
 

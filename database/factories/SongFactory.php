@@ -17,7 +17,8 @@ class SongFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => fake()->sentence(2),
+            'description' => fake()->sentence(),
         ];
     }
 }
