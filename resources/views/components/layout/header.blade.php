@@ -1,8 +1,6 @@
-<header class="bg-white p-6 flex justify-between text-blue-500">
+<header class="px-40 py-10 bg-white flex justify-between">
     <div class="">
-        <a href="{{ route('home') }}">
-            <h1 class="font-bold text-3xl hover:text-blue-600 transition">Chord Book</h1>
-        </a>
+        <x-logo />
     </div>
 
     <nav class="flex items-center">
