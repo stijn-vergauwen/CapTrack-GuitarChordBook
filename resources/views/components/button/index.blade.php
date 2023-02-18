@@ -2,7 +2,7 @@
     'href',
     'type' => 'button',
     'colorClasses',
-    'classes' => $colorClasses . ' py-2 px-4 transition',
+    'classes' => $colorClasses . ' py-0.5 px-6 transition',
 ])
 
 @isset($href)
