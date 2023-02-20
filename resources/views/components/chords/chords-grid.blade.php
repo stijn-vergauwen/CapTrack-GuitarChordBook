@@ -1,6 +1,6 @@
 @props(['chords'])
 
-<section class="w-full max-w-5xl flex flex-wrap">
+<section class="grid grid-cols-3 auto-rows-auto gap-8 flex-grow">
 
     @foreach ($chords as $chord)
         

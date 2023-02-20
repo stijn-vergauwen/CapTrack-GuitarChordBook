@@ -13,6 +13,10 @@ module.exports = {
                     700: '#0044AA',
                 },
             },
+            
+            aspectRatio: {
+                'diagram': '2 / 3',
+            },
         },
     },
     plugins: [],
