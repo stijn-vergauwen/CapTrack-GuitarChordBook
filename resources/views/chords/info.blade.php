@@ -4,7 +4,7 @@
         Chord
     </x-slot>
 
-    <main class="flex flex-col">
+    <main class="flex flex-col min-h-screen">
         <x-title text="Chord info" />
 
         <div class="px-40 flex gap-24">
@@ -15,36 +15,52 @@
             </div>
 
 
-            <div class="p-12 bg-white flex flex-col gap-12">
-                <div>
-                    <p class="font-bold text-lg">Chord name</p>
-                    <h2 class="font-bold text-4xl text-blue-500">{{ $chord->name }}</h2>
-                </div>
-                
-                <div>
-                    <p class="font-bold text-lg">About this chord</p>
-                    <p class="text-lg">{{ $chord->description }}</p>
-                </div>
+            <x-content-container spacing="p-12" class="flex-grow">
 
-                <div>
-                    <p class="font-semibold text-lg">Finger placement</p>
+                <div class="flex mb-16">
+                    <div class="w-1/2 flex flex-col gap-8">
+                        <div>
+                            <p class="font-bold">Chord name</p>
+                            <h2 class="font-bold text-3xl text-blue-500">{{ $chord->name }}</h2>
+                        </div>
 
-                    @foreach ($chord->fingerPlacements as $fingerPlacement)
-
-                        <x-finger-placements.line-display
-                            :fret="$fingerPlacement->fret"
-                            :muteString="$fingerPlacement->mute_string"
-                        />
+                        <div>
+                            <p class="font-bold">Tags</p>
+                            <p class="font-bold text-blue-500">Tag Tag Tag</p>
+                        </div>
                         
-                    @endforeach
+                        <div>
+                            <p class="font-bold">About this chord</p>
+                            <p class="">{{ $chord->description }}</p>
+                        </div>
+                    </div>
 
+                    <div class="w-1/2">
+                        <p class="font-bold">Finger placement</p>
+    
+                        @foreach ($chord->fingerPlacements as $fingerPlacement)
+    
+                            <x-finger-placements.line-display
+                                :fret="$fingerPlacement->fret"
+                                :muteString="$fingerPlacement->mute_string"
+                            />
+                            
+                        @endforeach
+                    </div>
                 </div>
 
-                <div class="flex justify-end">
-                    <x-button.full :href="route('chordEditor', ['id' => $chord->id])">Edit chord</x-button.full>
+                <div>
+                    <h2 class="font-bold text-3xl">Songs</h2>
+                    <p>Songs that use this chord</p>
+
+                    <div>
+                        <p class="w-1/2 px-10 py-2 my-2 font-bold text-white bg-neutral-300">song</p>
+                        <p class="w-1/2 px-10 py-2 my-2 font-bold text-white bg-neutral-300">song</p>
+                        <p class="w-1/2 px-10 py-2 my-2 font-bold text-white bg-neutral-300">song</p>
+                    </div>
                 </div>
 
-            </div>
+            </x-content-container>
 
             <div class="w-64">
                 

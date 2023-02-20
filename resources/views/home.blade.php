@@ -4,7 +4,7 @@
         Home
     </x-slot>
 
-    <main class="flex flex-col items-center">
+    <main class="flex flex-col items-center min-h-screen">
         <x-title text="Featured" />
 
         <div class="w-full max-w-7xl flex gap-8">
@@ -43,10 +43,6 @@
 
             </div>
 
-        </div>
-
-        <div class="h-80">
-            <!-- just space -->
         </div>
         
     </main>

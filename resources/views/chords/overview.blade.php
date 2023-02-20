@@ -4,7 +4,7 @@
         Chords
     </x-slot>
 
-    <main class="flex flex-col">
+    <main class="flex flex-col min-h-screen">
         <x-title text="Chords" />
 
         <div class="px-40 flex gap-24">
