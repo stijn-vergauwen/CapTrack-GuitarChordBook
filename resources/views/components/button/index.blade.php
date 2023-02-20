@@ -2,14 +2,14 @@
     'href',
     'type' => 'button',
     'colorClasses',
-    'classes' => $colorClasses . ' py-0.5 px-6 transition',
+    'spacing' => 'py-2 px-8',
 ])
 
 @isset($href)
     
     <a 
         href="{{ $href }}" 
-        {{ $attributes->merge(['class' => $classes]) }}
+        {{ $attributes->merge(['class' => $colorClasses . ' ' . $spacing . ' w-full inline-block transition']) }}
     >
         {{ $slot }}
     </a>
@@ -18,7 +18,7 @@
     
     <button 
         type="{{ $type }}"
-        {{ $attributes->merge(['class' => $classes]) }}
+        {{ $attributes->merge(['class' => $colorClasses . ' ' . $spacing . ' w-full inline-block transition']) }}
     >
         {{ $slot }}
     </button>

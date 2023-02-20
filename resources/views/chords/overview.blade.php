@@ -16,7 +16,7 @@
             <x-chords.chords-grid :chords="$chords" />
 
             <div class="w-64 flex-shrink">
-                <x-button.hollow :href="route('chordCreator')" class="font-bold w-full inline-block text-center">Add new chord</x-button.hollow>
+                <x-button.hollow :href="route('chordCreator')" class="font-bold">Add new chord</x-button.hollow>
             </div>
 
         </div>

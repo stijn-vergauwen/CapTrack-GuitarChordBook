@@ -4,12 +4,16 @@
         Chord
     </x-slot>
 
-    <main class="py-12 flex flex-col items-center gap-12">
-        <section class="container max-w-2xl flex flex-col">
-            
-            <div class="w-full mb-6">
-                <x-link-block :href="route('chordsOverview')" text="<- Back to overview" />
+    <main class="flex flex-col">
+        <x-title text="Chord info" />
+
+        <div class="px-40 flex gap-24">
+
+            <div class="w-64">
+                <x-button.list :href="route('chordsOverview')" class="font-bold"><- Back to overview</x-button.list>
+                <x-button.list :href="route('chordEditor', ['id' => $chord->id])" class="font-bold">Edit chord</x-button.list>
             </div>
+
 
             <div class="p-12 bg-white flex flex-col gap-12">
                 <div>
@@ -37,11 +41,15 @@
                 </div>
 
                 <div class="flex justify-end">
-                    <x-link-block :href="route('chordEditor', ['id' => $chord->id])" text="Edit chord" />
+                    <x-button.full :href="route('chordEditor', ['id' => $chord->id])">Edit chord</x-button.full>
                 </div>
 
             </div>
 
-        </section>
+            <div class="w-64">
+                
+            </div>
+
+        </div>
     </main>
 </x-layout.base>

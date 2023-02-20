@@ -4,7 +4,8 @@
 ])
 
 <x-button
-    colorClasses="border-[3px] {{ $base }} {{ $hover }}"
+    colorClasses="text-center border-[3px] {{ $base }} {{ $hover }}"
+    spacing="py-0.5 px-7"
     {{ $attributes }}
 >
     {{ $slot }}
