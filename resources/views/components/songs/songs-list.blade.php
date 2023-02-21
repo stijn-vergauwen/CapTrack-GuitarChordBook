@@ -1,10 +1,10 @@
 @props(['songs'])
 
-<section class="w-full max-w-5xl flex flex-col">
+<section class="flex-grow flex flex-col gap-8">
 
     @foreach ($songs as $song)
 
-        <x-songs.song-item :id="$song->id" :title="$song->title" :description="$song->description" :chords="$song->chords" />
+        <x-songs.song-item :id="$song->id" :title="$song->title" :chords="$song->chords" />
 
     @endforeach
 
