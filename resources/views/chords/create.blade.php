@@ -4,58 +4,78 @@
         Create chord
     </x-slot>
 
-    <main class="py-12 flex flex-col items-center gap-12">
-        <section class="container max-w-2xl flex flex-col">
+    <main class="flex flex-col min-h-screen">
+        <x-title text="Edit chord" />
 
-            <div class="w-full mb-6">
-                <x-link-block :href="route('chordsOverview')" text="<- Back to overview" />
+        <div class="px-40 flex gap-24">
+
+            <div class="w-64">
+                <x-button.list :href="route('chordsOverview')" class="font-bold">Cancel</x-button.list>
+
+                <x-button.list class="font-bold" form="chord-create-form" type="submit">Save Chord</x-button.list>
             </div>
 
-            <div class="p-12 bg-white">
-                <h2 class="mb-8 font-bold text-2xl">Create new Chord</h2>
 
-                <form class="flex flex-col justify-between gap-8" action="create" method="post">
+            <x-content-container spacing="p-12" class="flex-grow">
+                <form id="chord-create-form" action="{{ route('chord.create') }}" method="post">
                     @csrf
 
-                    <div>
-                        <label class="block font-semibold text-lg" for="chord-name">Chord name</label>
-                        <input class="border-2 p-2 text-lg w-full"
-                            id="chord-name" name="name" type="text" placeholder="Write the name of the chord here">
-                    </div>
+                    <div class="flex mb-16">
+                        <div class="w-1/2 flex flex-col gap-8">
 
-                    <div>
-                        <label class="block font-semibold text-lg" for="chord-description">Chord description</label>
-                        <input class="border-2 p-2 text-lg w-full"
-                            id="chord-description" name="description" type="text" placeholder="Write a short description here">
-                    </div>
-
-                    <div>
-                        <p class="font-semibold text-lg">Finger placement</p>
-
-                        <div class="p-2 inline-flex flex-col gap-1 border-2">
-
-                            <div class="flex gap-6">
-                                <p class="w-16 font-semibold text-lg text-center">String</p>
-                                <p class="w-16 font-semibold text-lg text-center">Fret</p>
-                                <p class="w-16 font-semibold text-lg text-center">Muted?</p>
-                            </div>
-
-                            @for ($i = 0; $i < 6; $i++)
-                                
-                                <x-finger-placements.input-field :string="$i"/>
-                                
-                            @endfor
-
+                            <x-form.input label="Chord name" id="chord-name" name="name" />
+                            
+                            <x-form.input label="Chord description" id="chord-description" name="description" />
+                            
                         </div>
 
+                        <!-- TODO: replace this with chord diagram component -->
+                        <div class="w-1/2">
+                            <p class="font-semibold text-lg">Finger placement</p>
+
+                            <div class="p-2 inline-flex flex-col gap-1 border-2">
+
+                                <div class="flex gap-6">
+                                    <p class="w-16 font-semibold text-lg text-center">String</p>
+                                    <p class="w-16 font-semibold text-lg text-center">Fret</p>
+                                    <p class="w-16 font-semibold text-lg text-center">Muted?</p>
+                                </div>
+
+                                @for ($i = 0; $i < 6; $i++)
+                                
+                                    <x-finger-placements.input-field :string="$i"/>
+                                    
+                                @endfor
+
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="flex justify-end">
-                        <x-button-block text="Create Chord" />
+                    <div class="flex">
+                        <div class="w-1/2">
+                            <p class="font-bold">Select tags</p>
+                            <p class="border-2 px-2 py-1 w-40">Search</p>
+    
+                            <div>
+                                <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
+                                <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
+                                <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
+                            </div>
+                        </div>
+
+                        <div class="w-1/2">
+                            <p class="font-bold">Current tags</p>
+
+                        </div>
                     </div>
+                        
                 </form>
+            </x-content-container>
+
+            <div class="w-64">
+                
             </div>
 
-        </section>
+        </div>
     </main>
 </x-layout.base>
