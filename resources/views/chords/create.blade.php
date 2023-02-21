@@ -5,7 +5,7 @@
     </x-slot>
 
     <main class="flex flex-col min-h-screen">
-        <x-title text="Edit chord" />
+        <x-title text="Create chord" />
 
         <div class="px-40 flex gap-24">
 

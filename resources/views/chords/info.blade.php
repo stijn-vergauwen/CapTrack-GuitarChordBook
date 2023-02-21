@@ -21,12 +21,12 @@
                     <div class="w-1/2 flex flex-col gap-8">
                         <div>
                             <p class="font-bold">Chord name</p>
-                            <h2 class="font-bold text-3xl text-blue-500">{{ $chord->name }}</h2>
+                            <h2 class="font-bold text-3xl text-primary-600">{{ $chord->name }}</h2>
                         </div>
 
                         <div>
                             <p class="font-bold">Tags</p>
-                            <p class="font-bold text-blue-500">Tag Tag Tag</p>
+                            <p class="font-bold text-primary-600">Tag Tag Tag</p>
                         </div>
                         
                         <div>

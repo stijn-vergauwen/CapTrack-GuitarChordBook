@@ -2,7 +2,7 @@
 
 <x-clickable-card :href="route('songInfo', ['id' => $id])" class="border-primary-600 flex justify-between items-center">
     <div class="flex flex-col">
-        <h3 class="font-bold text-3xl text-blue-500">{{ $title }}</h3>
+        <h3 class="font-bold text-3xl text-primary-600">{{ $title }}</h3>
         <p class="ml-4">By 'author name'</p>
     </div>
     
