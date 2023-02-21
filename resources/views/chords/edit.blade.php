@@ -18,7 +18,7 @@
                     @csrf
                     <input type="hidden" name="id" value="{{ $chord->id }}">
 
-                    <x-button.list class="font-bold">Delete chord</x-button.list>
+                    <x-button.list class="font-bold" type="submit" text="text-red-400">Delete chord</x-button.list>
                 </form>
             </div>
 
@@ -34,7 +34,7 @@
                             <x-form.input label="Chord name" id="chord-name" name="name" :value="$chord->name" />
                             
                             <x-form.input label="Chord description" id="chord-description" name="description" :value="$chord->description" />
-                            
+
                         </div>
 
                         <!-- TODO: replace this with chord diagram component -->
