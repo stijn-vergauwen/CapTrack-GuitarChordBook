@@ -8,87 +8,77 @@
         @vite('resources/js/chordsSelector.js')
     </x-slot>
 
-    <main class="flex flex-col min-h-screen">
-        <x-title text="Edit song" />
+    <x-layout.page-container pageTitle="Edit song">
 
-        <div class="px-40 flex gap-24">
+        <x-slot:left>
+            <x-button.list :href="route('songInfo', ['id' => $song->id])" class="font-bold">Cancel</x-button.list>
+            <x-button.list class="font-bold" form="song-edit-form" type="submit">Save changes</x-button.list>
 
-            <div class="w-64">
-                <x-button.list :href="route('songInfo', ['id' => $song->id])" class="font-bold">Cancel</x-button.list>
+            <form action="{{ route('song.delete') }}" method="post">
+                @csrf
+                <input type="hidden" name="id" value="{{ $song->id }}">
 
-                <x-button.list class="font-bold" form="song-edit-form" type="submit">Save changes</x-button.list>
+                <x-button.list class="font-bold" type="submit" text="text-red-400">Delete song</x-button.list>
+            </form>
+        </x-slot:left>
 
-                <form action="{{ route('song.delete') }}" method="post">
-                    @csrf
-                    <input type="hidden" name="id" value="{{ $song->id }}">
+        <x-content-container spacing="p-12" class="flex-grow">
+            <form id="song-edit-form" action="{{ route('song.edit') }}" method="post">
+                @csrf
+                <input type="hidden" name="id" value="{{ $song->id }}">
 
-                    <x-button.list class="font-bold" type="submit" text="text-red-400">Delete song</x-button.list>
-                </form>
-            </div>
+                <div class="flex mb-16">
+                    <div class="w-1/2 flex flex-col gap-8">
 
-            <x-content-container spacing="p-12" class="flex-grow">
-                <form id="song-edit-form" action="{{ route('song.edit') }}" method="post">
-                    @csrf
-                    <input type="hidden" name="id" value="{{ $song->id }}">
-
-                    <div class="flex mb-16">
-                        <div class="w-1/2 flex flex-col gap-8">
-
-                            <x-form.input label="Song title" id="song-title" name="title" :value="$song->title" placeholder="Title of the song" />
-                            
-                            <x-form.input label="Song description" id="song-description" name="description" :value="$song->description" placeholder="Short description" />
-                            
-                        </div>
-
-                        <div class="w-1/2">
-                            <div class="flex">
-                                <div class="w-1/2">
-                                    <p class="font-bold">Artist</p>
-                                    
-                                    <p class="font-bold text-primary-600">Name</p>
-                                </div>
-
-                                <div class="w-1/2">
-                                    <p class="font-bold">Search artists</p>
-                                    <p class="border-2 px-2 py-1">Search</p>
-            
-                                    <div class="flex flex-col gap-2 mt-2">
-                                        <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">tag</p>
-                                        <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">tag</p>
-                                        <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">tag</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <x-songs.chords-selector :allChords="$allChords" :selectedChords="$selectedChords" />
-
-                    <div class="flex">
-                        <div class="w-1/2">
-                            <p class="font-bold">Select tags</p>
-                            <p class="border-2 px-2 py-1 w-40">Search</p>
-    
-                            <div>
-                                <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
-                                <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
-                                <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
-                            </div>
-                        </div>
-
-                        <div class="w-1/2">
-                            <p class="font-bold">Current tags</p>
-
-                        </div>
-                    </div>
+                        <x-form.input label="Song title" id="song-title" name="title" :value="$song->title" placeholder="Title of the song" />
                         
-                </form>
-            </x-content-container>
+                        <x-form.input label="Song description" id="song-description" name="description" :value="$song->description" placeholder="Short description" />
+                        
+                    </div>
 
-            <div class="w-64">
-                
-            </div>
+                    <div class="w-1/2">
+                        <div class="flex">
+                            <div class="w-1/2">
+                                <p class="font-bold">Artist</p>
+                                
+                                <p class="font-bold text-primary-600">Name</p>
+                            </div>
 
-        </div>
-    </main>
+                            <div class="w-1/2">
+                                <p class="font-bold">Search artists</p>
+                                <p class="border-2 px-2 py-1">Search</p>
+        
+                                <div class="flex flex-col gap-2 mt-2">
+                                    <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">tag</p>
+                                    <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">tag</p>
+                                    <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">tag</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <x-songs.chords-selector :allChords="$allChords" :selectedChords="$selectedChords" />
+
+                <div class="flex">
+                    <div class="w-1/2">
+                        <p class="font-bold">Select tags</p>
+                        <p class="border-2 px-2 py-1 w-40">Search</p>
+
+                        <div>
+                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
+                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
+                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
+                        </div>
+                    </div>
+
+                    <div class="w-1/2">
+                        <p class="font-bold">Current tags</p>
+
+                    </div>
+                </div>
+                    
+            </form>
+        </x-content-container>
+    </x-layout.page-container>
 </x-layout.base>

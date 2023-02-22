@@ -4,23 +4,27 @@
         Songs
     </x-slot>
 
-    <main class="flex flex-col min-h-screen">
-        <x-title text="Songs" />
+    <x-layout.page-container pageTitle="Songs">
 
-        <div class="px-40 flex gap-24">
-
-            <x-content-container class="w-64">
+        <x-slot:left>
+            <x-content-container>
                 <p class="text-2xl font-bold text-center">Tags</p>
             </x-content-container>
-            
-            <x-songs.songs-list :songs="$songs" />
+        </x-slot:left>
 
-            <div class="w-64 flex-shrink">
-                <x-button.hollow :href="route('songCreator')" class="font-bold">Add new song</x-button.hollow>
-            </div>
+        <section class="flex-grow flex flex-col gap-8">
 
-        </div>
-        
-    </main>
+            @foreach ($songs as $song)
 
+                <x-songs.card :id="$song->id" :title="$song->title" :chords="$song->chords" />
+
+            @endforeach
+
+        </section>
+
+        <x-slot:right>
+            <x-button.hollow :href="route('songCreator')" class="font-bold">Add new song</x-button.hollow>
+        </x-slot:right>
+
+    </x-layout.page-container>
 </x-layout.base>

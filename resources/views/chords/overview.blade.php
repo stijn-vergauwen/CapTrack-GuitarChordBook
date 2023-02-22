@@ -4,23 +4,27 @@
         Chords
     </x-slot>
 
-    <main class="flex flex-col min-h-screen">
-        <x-title text="Chords" />
+    <x-layout.page-container pageTitle="Chords">
 
-        <div class="px-40 flex gap-24">
-
-            <x-content-container class="w-64">
+        <x-slot:left>
+            <x-content-container>
                 <p class="text-2xl font-bold text-center">Tags</p>
             </x-content-container>
-            
-            <x-chords.chords-grid :chords="$chords" />
+        </x-slot:left>
 
-            <div class="w-64 flex-shrink">
-                <x-button.hollow :href="route('chordCreator')" class="font-bold">Add new chord</x-button.hollow>
-            </div>
+        <section class="grid grid-cols-3 auto-rows-auto gap-8 flex-grow">
 
-        </div>
+            @foreach ($chords as $chord)
+                
+                <x-chords.chord-item :id="$chord->id" :name="$chord->name" :description="$chord->description"/>
+
+            @endforeach
+
+        </section>
         
-    </main>
+        <x-slot:right>
+            <x-button.hollow :href="route('chordCreator')" class="font-bold">Add new chord</x-button.hollow>
+        </x-slot:right>
 
+    </x-layout.page-container>
 </x-layout.base>
