@@ -50,7 +50,7 @@
                     </div>
                 </div>
 
-                <x-songs.chords-selector :allChords="$allChords" />
+                <x-multiselect.chords-selector :allChords="$allChords" />
 
                 <div class="flex">
                     <div class="w-1/2">

@@ -16,7 +16,7 @@ let selectedChordIds = [] // array of id's of selected chords
 // Functions
 
 chordsList.addEventListener('click', e => {
-    let chordItem = e.target.closest('.chord-select-item')
+    let chordItem = e.target.closest('.select-item')
 
     if(chordItem != null) {
         handleSelectedChord(chordItem)
@@ -82,7 +82,7 @@ function initSelectedChords() {
         addSelectedChord(chordId)
     }
     
-    let allChords = chordsList.querySelectorAll('.chord-select-item')
+    let allChords = chordsList.querySelectorAll('.select-item')
     allChords.forEach(chordItem => {
         if(checkIfChordIdSelected(Number(chordItem.dataset.chordId))) {
             setStylingOnChord(chordItem, true)
@@ -132,7 +132,7 @@ function findNameOfChordElement(chordElement) {
 }
 
 function findChordElementById(chordId) {
-    let allChords = chordsList.querySelectorAll('.chord-select-item')
+    let allChords = chordsList.querySelectorAll('.select-item')
 
     for(const chord of allChords) {
         if(Number(chord.dataset.chordId) == chordId) return chord

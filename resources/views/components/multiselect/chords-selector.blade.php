@@ -1,3 +1,5 @@
+<!-- TODO: replace with generalized multiselect -->
+
 @props(['allChords' => [], 'selectedChords' => ''])
 
 <div class="chords-selector flex mb-16">
@@ -10,8 +12,8 @@
         <div id="chords-selector-list" class="w-60 flex flex-wrap gap-2 max-h-60 overflow-y-auto">
     
             @foreach ($allChords as $chord)
-                
-                <x-songs.chord-select-item :id="$chord->id" :name="$chord->name" />
+
+                <x-multiselect.select-item :name="$chord->name" data="data-chord-id={{ $chord->id }}" />
         
             @endforeach
             
