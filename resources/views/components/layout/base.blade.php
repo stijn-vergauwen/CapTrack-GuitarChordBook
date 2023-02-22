@@ -10,10 +10,13 @@
 
     <title>{{ $title }} - Guitar Chord Book</title>
 </head>
-<body class="bg-neutral-100 text-neutral-700">
+<body class="bg-neutral-100 text-neutral-700 text-lg">
 
     <x-layout.header/>
 
     {{ $slot }}
+
+    <x-layout.footer/>
+    
 </body>
 </html>

@@ -4,13 +4,27 @@
         Chords
     </x-slot>
 
-    <main class="py-12 flex flex-col items-center gap-12">
-        <h2 class="px-20 font-bold text-3xl text-center border-b-2 border-blue-600">
-            All chords
-        </h2>
+    <x-layout.page-container pageTitle="Chords">
 
-        <x-chords.chords-grid :chords="$chords" />
+        <x-slot:left>
+            <x-layout.content-container>
+                <p class="text-2xl font-bold text-center">Tags</p>
+            </x-layout.content-container>
+        </x-slot:left>
+
+        <section class="grid grid-cols-3 auto-rows-auto gap-8 flex-grow">
+
+            @foreach ($chords as $chord)
+                
+                <x-cards.chord :id="$chord->id" :name="$chord->name" :description="$chord->description"/>
+
+            @endforeach
+
+        </section>
         
-    </main>
+        <x-slot:right>
+            <x-button.hollow :href="route('chordCreator')" class="font-bold">Add new chord</x-button.hollow>
+        </x-slot:right>
 
+    </x-layout.page-container>
 </x-layout.base>

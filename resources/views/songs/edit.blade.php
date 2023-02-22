@@ -8,53 +8,77 @@
         @vite('resources/js/chordsSelector.js')
     </x-slot>
 
-    <main class="py-12 flex flex-col items-center gap-12">
-        <section class="container max-w-2xl flex flex-col">
-            
-            <div class="w-full mb-6">
-                <x-link-block :href="route('songInfo', ['id' => $song->id])" text="<- Back to song info"/>
-            </div>
+    <x-layout.page-container pageTitle="Edit song">
 
-            <div class="p-12 flex flex-col gap-8 bg-white">
-                <h2 class="font-bold text-2xl">Edit song</h2>
+        <x-slot:left>
+            <x-button.list :href="route('songInfo', ['id' => $song->id])" class="font-bold">Cancel</x-button.list>
+            <x-button.list class="font-bold" form="song-edit-form" type="submit">Save changes</x-button.list>
 
-                <form class="flex flex-col justify-between gap-8" action="{{ route('song.edit') }}" method="post">
-                    @csrf
+            <form action="{{ route('song.delete') }}" method="post">
+                @csrf
+                <input type="hidden" name="id" value="{{ $song->id }}">
 
-                    <input type="hidden" name="id" value="{{ $song->id }}">
+                <x-button.list class="font-bold" type="submit" text="text-red-400">Delete song</x-button.list>
+            </form>
+        </x-slot:left>
 
-                    <div>
-                        <label class="block font-semibold text-lg" for="song-title">Song title</label>
-                        <input class="border-2 p-2 text-lg w-full"
-                            id="song-title" name="title" type="text" value="{{ $song->title }}">
-                    </div>
+        <x-layout.content-container spacing="p-12" class="flex-grow">
+            <form id="song-edit-form" action="{{ route('song.edit') }}" method="post">
+                @csrf
+                <input type="hidden" name="id" value="{{ $song->id }}">
 
-                    <div>
-                        <label class="block font-semibold text-lg" for="song-description">Song description</label>
-                        <input class="border-2 p-2 text-lg w-full"
-                            id="song-description" name="description" type="text" value="{{ $song->description }}">
-                    </div>
+                <div class="flex mb-16">
+                    <div class="w-1/2 flex flex-col gap-8">
 
-                    <div>
-                        <p class="block font-semibold text-lg">Select chords used in this song</p>
-
-                        <x-songs.chords-selector :allChords="$allChords" :selectedChords="$selectedChords" />
-                    </div>
+                        <x-form.input label="Song title" id="song-title" name="title" :value="$song->title" placeholder="Title of the song" />
                         
-                    <div class="flex justify-end">
-                        <x-button-block text="Save changes"/>
+                        <x-form.input label="Song description" id="song-description" name="description" :value="$song->description" placeholder="Short description" />
+                        
                     </div>
-                </form>
 
-                <form class="flex justify-end" action="{{ route('song.delete') }}" method="post">
-                    @csrf
+                    <div class="w-1/2">
+                        <div class="flex">
+                            <div class="w-1/2">
+                                <p class="font-bold">Artist</p>
+                                
+                                <p class="font-bold text-primary-600">Name</p>
+                            </div>
 
-                    <input type="hidden" name="id" value="{{ $song->id }}">
+                            <div class="w-1/2">
+                                <p class="font-bold">Search artists</p>
+                                <p class="border-2 px-2 py-1">Search</p>
+        
+                                <div class="flex flex-col gap-2 mt-2">
+                                    <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">tag</p>
+                                    <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">tag</p>
+                                    <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">tag</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    <button class="py-2 px-4 font-bold text-red-400 hover:text-red-600 focus:text-red-600 transition">Delete song</button>
-                </form>
-            </div>
+                <x-multiselect.chords-selector :allChords="$allChords" :selectedChords="$selectedChords" />
 
-        </section>
-    </main>
+                <div class="flex">
+                    <div class="w-1/2">
+                        <p class="font-bold">Select tags</p>
+                        <p class="border-2 px-2 py-1 w-40">Search</p>
+
+                        <div>
+                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
+                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
+                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
+                        </div>
+                    </div>
+
+                    <div class="w-1/2">
+                        <p class="font-bold">Current tags</p>
+
+                    </div>
+                </div>
+                    
+            </form>
+        </x-layout.content-container>
+    </x-layout.page-container>
 </x-layout.base>

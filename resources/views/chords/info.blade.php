@@ -4,26 +4,35 @@
         Chord
     </x-slot>
 
-    <main class="py-12 flex flex-col items-center gap-12">
-        <section class="container max-w-2xl flex flex-col">
-            
-            <div class="w-full mb-6">
-                <x-link-block :href="route('chordsOverview')" text="<- Back to overview" />
-            </div>
+    <x-layout.page-container pageTitle="Chord info">
 
-            <div class="p-12 bg-white flex flex-col gap-12">
-                <div>
-                    <p class="font-bold text-lg">Chord name</p>
-                    <h2 class="font-bold text-4xl text-blue-500">{{ $chord->name }}</h2>
-                </div>
-                
-                <div>
-                    <p class="font-bold text-lg">About this chord</p>
-                    <p class="text-lg">{{ $chord->description }}</p>
+        <x-slot:left>
+            <x-button.list :href="route('chordsOverview')" class="font-bold"><- Back to overview</x-button.list>
+            <x-button.list :href="route('chordEditor', ['id' => $chord->id])" class="font-bold">Edit chord</x-button.list>
+        </x-slot:left>
+
+        <x-layout.content-container spacing="p-12" class="flex-grow">
+
+            <div class="flex mb-16">
+                <div class="w-1/2 flex flex-col gap-8">
+                    <div>
+                        <p class="font-bold">Chord name</p>
+                        <h2 class="font-bold text-3xl text-primary-600">{{ $chord->name }}</h2>
+                    </div>
+
+                    <div>
+                        <p class="font-bold">Tags</p>
+                        <p class="font-bold text-primary-600">Tag Tag Tag</p>
+                    </div>
+                    
+                    <div>
+                        <p class="font-bold">About this chord</p>
+                        <p class="">{{ $chord->description }}</p>
+                    </div>
                 </div>
 
-                <div>
-                    <p class="font-semibold text-lg">Finger placement</p>
+                <div class="w-1/2">
+                    <p class="font-bold">Finger placement</p>
 
                     @foreach ($chord->fingerPlacements as $fingerPlacement)
 
@@ -33,15 +42,21 @@
                         />
                         
                     @endforeach
-
                 </div>
-
-                <div class="flex justify-end">
-                    <x-link-block :href="route('chordEditor', ['id' => $chord->id])" text="Edit chord" />
-                </div>
-
             </div>
 
-        </section>
-    </main>
+            <div>
+                <h2 class="font-bold text-3xl">Songs</h2>
+                <p>Songs that use this chord</p>
+
+                <div>
+                    <p class="w-1/2 px-10 py-2 my-2 font-bold text-white bg-neutral-300">song</p>
+                    <p class="w-1/2 px-10 py-2 my-2 font-bold text-white bg-neutral-300">song</p>
+                    <p class="w-1/2 px-10 py-2 my-2 font-bold text-white bg-neutral-300">song</p>
+                </div>
+            </div>
+
+        </x-layout.content-container>
+
+    </x-layout.page-container>
 </x-layout.base>

@@ -4,13 +4,27 @@
         Songs
     </x-slot>
 
-    <main class="py-12 flex flex-col items-center gap-12">
-        <h2 class="px-20 font-bold text-3xl text-center border-b-2 border-blue-600">
-            All songs
-        </h2>
+    <x-layout.page-container pageTitle="Songs">
 
-        <x-songs.songs-list :songs="$songs" />
-        
-    </main>
+        <x-slot:left>
+            <x-layout.content-container>
+                <p class="text-2xl font-bold text-center">Tags</p>
+            </x-layout.content-container>
+        </x-slot:left>
 
+        <section class="flex-grow flex flex-col gap-8">
+
+            @foreach ($songs as $song)
+
+                <x-cards.song :id="$song->id" :title="$song->title" :chords="$song->chords" />
+
+            @endforeach
+
+        </section>
+
+        <x-slot:right>
+            <x-button.hollow :href="route('songCreator')" class="font-bold">Add new song</x-button.hollow>
+        </x-slot:right>
+
+    </x-layout.page-container>
 </x-layout.base>
