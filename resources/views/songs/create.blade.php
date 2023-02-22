@@ -15,7 +15,7 @@
             <x-button.list class="font-bold" form="song-create-form" type="submit">Save song</x-button.list>
         </x-slot:left>
 
-        <x-content-container spacing="p-12" class="flex-grow">
+        <x-layout.content-container spacing="p-12" class="flex-grow">
             <form id="song-create-form" action="{{ route('song.create') }}" method="post">
                 @csrf
 
@@ -71,7 +71,7 @@
                 </div>
                     
             </form>
-        </x-content-container>
+        </x-layout.content-container>
 
     </x-layout.page-container>
 

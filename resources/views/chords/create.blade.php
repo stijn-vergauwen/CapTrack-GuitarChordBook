@@ -11,7 +11,7 @@
             <x-button.list class="font-bold" form="chord-create-form" type="submit">Save Chord</x-button.list>
         </x-slot:left>
 
-        <x-content-container spacing="p-12" class="flex-grow">
+        <x-layout.content-container spacing="p-12" class="flex-grow">
             <form id="chord-create-form" action="{{ route('chord.create') }}" method="post">
                 @csrf
 
@@ -65,7 +65,7 @@
                 </div>
                     
             </form>
-        </x-content-container>
+        </x-layout.content-container>
         
     </x-layout.page-container>
 </x-layout.base>

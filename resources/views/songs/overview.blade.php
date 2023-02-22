@@ -7,16 +7,16 @@
     <x-layout.page-container pageTitle="Songs">
 
         <x-slot:left>
-            <x-content-container>
+            <x-layout.content-container>
                 <p class="text-2xl font-bold text-center">Tags</p>
-            </x-content-container>
+            </x-layout.content-container>
         </x-slot:left>
 
         <section class="flex-grow flex flex-col gap-8">
 
             @foreach ($songs as $song)
 
-                <x-songs.card :id="$song->id" :title="$song->title" :chords="$song->chords" />
+                <x-cards.song :id="$song->id" :title="$song->title" :chords="$song->chords" />
 
             @endforeach
 

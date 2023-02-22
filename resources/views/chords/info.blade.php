@@ -11,7 +11,7 @@
             <x-button.list :href="route('chordEditor', ['id' => $chord->id])" class="font-bold">Edit chord</x-button.list>
         </x-slot:left>
 
-        <x-content-container spacing="p-12" class="flex-grow">
+        <x-layout.content-container spacing="p-12" class="flex-grow">
 
             <div class="flex mb-16">
                 <div class="w-1/2 flex flex-col gap-8">
@@ -56,7 +56,7 @@
                 </div>
             </div>
 
-        </x-content-container>
+        </x-layout.content-container>
 
     </x-layout.page-container>
 </x-layout.base>

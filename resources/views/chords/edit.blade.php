@@ -18,7 +18,7 @@
             </form>
         </x-slot:left>
 
-        <x-content-container spacing="p-12" class="flex-grow">
+        <x-layout.content-container spacing="p-12" class="flex-grow">
             <form id="chord-edit-form" action="{{ route('chord.edit') }}" method="post">
                 @csrf
                 <input type="hidden" name="id" value="{{ $chord->id }}">
@@ -77,7 +77,7 @@
                 </div>
                     
             </form>
-        </x-content-container>
+        </x-layout.content-container>
 
     </x-layout.page-container>
 </x-layout.base>
