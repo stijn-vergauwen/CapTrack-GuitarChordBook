@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Tag;
 use App\Models\Song;
 use App\Models\FingerPlacement;
 use App\Models\ChordFingerPlacement;
@@ -25,9 +26,9 @@ class Chord extends Model
         return $this->belongsToMany(Song::class, 'chord_songs');
     }
 
-    // public function chordFingerPlacements() {
-    //     return $this->hasMany(ChordFingerPlacement::class);
-    // }
+    public function tags() {
+        return $this->belongsToMany(Tag::class, 'chord_tags');
+    }
 
     public static function getAll() {
         return Chord::get();
