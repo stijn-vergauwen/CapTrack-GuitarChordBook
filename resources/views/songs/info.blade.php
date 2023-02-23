@@ -39,19 +39,21 @@
             </div>
 
             <div>
-                <p class="font-bold text-3xl">Chords</p>
+                <h2 class="font-bold text-3xl">Chords</h2>
+                <p>Chords used in this song</p>
 
                 <div class="flex gap-4">
-                    @foreach ($selectedChords as $selectedChord)
-                
-                        <a class="px-4 py-1 bg-neutral-100" href="{{ route('chordInfo', ['id' => $selectedChord->id]) }}">
-                            <p class="font-bold text-primary-600">{{ $selectedChord->name }}</p>
-                        </a>
+                    @foreach ($song->chords as $chord)
+
+                        <x-multiselect.link-item :href="route('chordInfo', ['id' => $chord->id])">
+                            {{ $chord->name }}
+                        </x-multiselect.link-item>
 
                     @endforeach
                 </div>
             </div>
 
         </x-layout.content-container>
+
     </x-layout.page-container>
 </x-layout.base>
