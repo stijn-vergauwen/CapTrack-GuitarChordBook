@@ -49,10 +49,14 @@
                 <h2 class="font-bold text-3xl">Songs</h2>
                 <p>Songs that use this chord</p>
 
-                <div>
-                    <p class="w-1/2 px-10 py-2 my-2 font-bold text-white bg-neutral-300">song</p>
-                    <p class="w-1/2 px-10 py-2 my-2 font-bold text-white bg-neutral-300">song</p>
-                    <p class="w-1/2 px-10 py-2 my-2 font-bold text-white bg-neutral-300">song</p>
+                <div class="inline-flex flex-col gap-4">
+                    @foreach ($chord->songs as $song)
+
+                        <x-multiselect.link-item :href="route('songInfo', ['id' => $song->id])">
+                            {{ $song->title }}
+                        </x-multiselect.link-item>
+
+                    @endforeach
                 </div>
             </div>
 
