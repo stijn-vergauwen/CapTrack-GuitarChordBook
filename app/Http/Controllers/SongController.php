@@ -23,15 +23,15 @@ class SongController extends Controller
     public function viewSongCreator() {
         $chords = Chord::getAll();
 
-        return view('songs.create', ['allChords' => $chords]);
+        return view('songs.create', ['chords' => $chords]);
     }
 
     public function viewSongEditor(int $id) {
         $song = Song::getById($id);
-        $allChords = Chord::getAll();
-        $selectedChords = $this->getChordIdsAsString($song->chords);
+        $chords = Chord::getAll();
+        $selectedChords = $this->arrayToJson($this->collectionToArrayOfIds($song->chords));
 
-        return view('songs.edit', ['song' => $song, 'allChords' => $allChords, 'selectedChords' => $selectedChords]);
+        return view('songs.edit', ['song' => $song, 'chords' => $chords, 'selectedChords' => $selectedChords]);
     }
 
     public function handleCreateSong(Request $request) {
@@ -43,7 +43,7 @@ class SongController extends Controller
 
         // dd($request->chords);
 
-        $this->createSong($request->title, $request->description, $this->requestChordsToArray($request->chords));
+        $this->createSong($request->title, $request->description, $this->jsonToArray($request->chords));
 
         return $this->viewSongsOverview();
     }
@@ -56,7 +56,7 @@ class SongController extends Controller
             'chords' => 'required',
         ]);
 
-        $this->updateSong($request->id, $request->title, $request->description, $this->requestChordsToArray($request->chords));
+        $this->updateSong($request->id, $request->title, $request->description, $this->jsonToArray($request->chords));
 
         return $this->viewSongInfo($validated['id']);
     }
@@ -91,7 +91,7 @@ class SongController extends Controller
         // dd($request->chords);
 
         $chordSongController = new ChordSongController();
-        $chordSongController->updateChordsOfSong($song->id, $this->getCollectionIdsAsArray($song->chords), $requestChords);
+        $chordSongController->updateChordsOfSong($song->id, $this->collectionToArrayOfIds($song->chords), $requestChords);
 
         $song->updateValues($title, $description);
     }
@@ -100,31 +100,29 @@ class SongController extends Controller
         $song = Song::getById($id);
 
         $chordSongController = new ChordSongController();
-        $chordSongController->deleteChordsOfSong($song->id, $this->getCollectionIdsAsArray($song->chords));
+        $chordSongController->deleteChordsOfSong($song->id, $this->collectionToArrayOfIds($song->chords));
 
         $song->delete();
     }
 
-    private function requestChordsToArray(string $chordsJson) : array {
-        return json_decode($chordsJson) ?? [];
+    // TODO: these utility methods are not controller specific, a general version as service for all controllers would be epic
+
+    private function jsonToArray(string $inputJson) : array {
+        return json_decode($inputJson) ?? [];
     }
 
-    private function getChordIdsAsString($chords) : string {
-        $chordIds = [];
-        foreach($chords as $chord) {
-            array_push($chordIds, $chord->id);
-        }
-        return json_encode($chordIds);
+    private function arrayToJson(array $inputArray) : string {
+        return json_encode($inputArray);
     }
 
-    private function getCollectionIdsAsArray($inputCollection) : array {
-        $ids = [];
+    private function collectionToArrayOfIds($inputCollection) : array {
+        $itemIds = [];
 
         foreach($inputCollection as $item) {
-            array_push($ids, $item->id);
+            array_push($itemIds, $item->id);
         }
 
-        return $ids;
+        return $itemIds;
     }
     
 }

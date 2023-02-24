@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\FingerPlacement;
 use App\Models\ChordFingerPlacement;
 use App\Http\Controllers\ChordFingerPlacementController;
+use App\Models\Tag;
 
 class ChordController extends Controller
 {
@@ -28,6 +29,8 @@ class ChordController extends Controller
 
     public function viewChordEditor(int $id) {
         $chord = Chord::getById($id);
+        // $tags = Tag::getAll();
+        // $selectedTags = 
 
         return view('chords.edit', ['chord' => $chord]);
     }
