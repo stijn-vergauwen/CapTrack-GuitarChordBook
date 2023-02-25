@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Chord;
 use Illuminate\Http\Request;
 use App\Models\FingerPlacement;
 use App\Models\ChordFingerPlacement;
+use App\Http\Controllers\ChordTagController;
 use App\Http\Controllers\ChordFingerPlacementController;
-use App\Models\Tag;
 
 class ChordController extends Controller
 {
@@ -84,7 +85,8 @@ class ChordController extends Controller
             ChordFingerPlacementController::createChordFingerPlacement($placementData, $index, $newChord->id);
         }
 
-        ChordTagController::createTagsOfChord($newChord->id, $tagIds);
+        $chordTagController = new ChordTagController();
+        $chordTagController->createTagsOfChord($newChord->id, $tagIds);
 
         return $newChord;
     }
@@ -95,7 +97,8 @@ class ChordController extends Controller
         
         ChordFingerPlacementController::updateFingerPlacementOfChord($chord, $strings);
 
-        // TODO: update tags of this chord
+        $chordTagController = new ChordTagController();
+        $chordTagController->updateTagsOfChord($id, $this->collectionToArrayOfIds($chord->tags), $tagIds);
     }
 
     private function deleteChord(int $id) {
@@ -104,6 +107,9 @@ class ChordController extends Controller
         ChordFingerPlacementController::deleteFingerPlacementOfChord($id);
 
         // TODO: delete chordSong entries with this chord
+
+        $chordTagController = new ChordTagController();
+        $chordTagController->deleteAllTagsOfChord($id);
 
         $chord->delete();
     }

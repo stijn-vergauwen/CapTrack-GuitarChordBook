@@ -25,4 +25,8 @@ class ChordTag extends Model
     public static function getByForeignIds(int $chordId, int $tagId) {
         return ChordTag::where('chord_id', $chordId)->where('tag_id', $tagId)->first();
     }
+
+    public static function getByChordId(int $chordId) {
+        return ChordTag::where('chord_id', $chordId)->get();
+    }
 }
