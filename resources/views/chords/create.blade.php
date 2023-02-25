@@ -4,6 +4,10 @@
         Create chord
     </x-slot>
 
+    <x-slot:resources>
+        @vite('resources/js/multiselect/tagsSelector.js')
+    </x-slot>
+
     <x-layout.page-container pageTitle="Create chord">
 
         <x-slot:left>
@@ -46,23 +50,7 @@
                     </div>
                 </div>
 
-                <div class="flex">
-                    <div class="w-1/2">
-                        <p class="font-bold">Select tags</p>
-                        <p class="border-2 px-2 py-1 w-40">Search</p>
-
-                        <div>
-                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
-                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
-                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
-                        </div>
-                    </div>
-
-                    <div class="w-1/2">
-                        <p class="font-bold">Current tags</p>
-
-                    </div>
-                </div>
+                <x-multiselect itemName="tags" :items="$tags" />
                     
             </form>
         </x-layout.content-container>

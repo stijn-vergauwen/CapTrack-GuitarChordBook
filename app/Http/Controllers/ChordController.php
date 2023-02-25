@@ -24,15 +24,17 @@ class ChordController extends Controller
     }
     
     public function viewChordCreator() {
-        return view('chords.create');
+        $tags = Tag::getAll();
+
+        return view('chords.create', ['tags' => $tags]);
     }
 
     public function viewChordEditor(int $id) {
         $chord = Chord::getById($id);
-        // $tags = Tag::getAll();
-        // $selectedTags = 
+        $tags = Tag::getAll();
+        $selectedTags = $this->arrayToJson($this->collectionToArrayOfIds($chord->tags));
 
-        return view('chords.edit', ['chord' => $chord]);
+        return view('chords.edit', ['chord' => $chord, 'tags' => $tags, 'selectedTags' => $selectedTags]);
     }
 
     public function handleCreateChord(Request $request) {
@@ -40,9 +42,10 @@ class ChordController extends Controller
             'name' => 'required',
             'description' => 'required',
             'strings' => 'required',
+            'tags' => 'required',
         ]);
 
-        $this->createChord($request->name, $request->description, $request->strings);
+        $this->createChord($request->name, $request->description, $request->strings, $this->jsonToArray($request->tags));
 
         return $this->viewChordsOverview();
     }
@@ -53,9 +56,10 @@ class ChordController extends Controller
             'name' => 'required',
             'description' => 'required',
             'strings' => 'required',
+            'tags' => 'required',
         ]);
 
-        $this->updateChord($request->id, $request->name, $request->description, $request->strings);
+        $this->updateChord($request->id, $request->name, $request->description, $request->strings, $this->jsonToArray($request->tags));
 
         return $this->viewChordInfo($validated['id']);
     }
@@ -70,7 +74,7 @@ class ChordController extends Controller
         return $this->viewChordsOverview();
     }
 
-    private function createChord(string $name, string $description, array $strings) : Chord {
+    private function createChord(string $name, string $description, array $strings, array $tagIds) : Chord {
         $newChord = Chord::create([
             'name' => $name,
             'description' => $description,
@@ -80,14 +84,18 @@ class ChordController extends Controller
             ChordFingerPlacementController::createChordFingerPlacement($placementData, $index, $newChord->id);
         }
 
+        ChordTagController::createTagsOfChord($newChord->id, $tagIds);
+
         return $newChord;
     }
 
-    private function updateChord(int $id, string $name, string $description, array $strings) {
+    private function updateChord(int $id, string $name, string $description, array $strings, array $tagIds) {
         $chord = Chord::getById($id);
         $chord->updateValues($name, $description);
         
         ChordFingerPlacementController::updateFingerPlacementOfChord($chord, $strings);
+
+        // TODO: update tags of this chord
     }
 
     private function deleteChord(int $id) {
@@ -98,5 +106,26 @@ class ChordController extends Controller
         // TODO: delete chordSong entries with this chord
 
         $chord->delete();
+    }
+
+
+    // Utility
+
+    private function jsonToArray(string $inputJson) : array {
+        return json_decode($inputJson) ?? [];
+    }
+
+    private function arrayToJson(array $inputArray) : string {
+        return json_encode($inputArray);
+    }
+
+    private function collectionToArrayOfIds($inputCollection) : array {
+        $itemIds = [];
+
+        foreach($inputCollection as $item) {
+            array_push($itemIds, $item->id);
+        }
+
+        return $itemIds;
     }
 }
