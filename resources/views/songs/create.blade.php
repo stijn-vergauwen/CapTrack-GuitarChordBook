@@ -51,7 +51,7 @@
                     </div>
                 </div>
 
-                <x-multiselect.chords-selector :allChords="$chords" />
+                <x-multiselect itemName="chords" :items="$chords" />
 
                 <x-multiselect itemName="tags" :items="$tags" />
 

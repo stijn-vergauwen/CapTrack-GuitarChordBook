@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Song;
 use App\Models\Chord;
-use App\Models\Tag;
 use Illuminate\Http\Request;
+use App\Http\Controllers\SongTagController;
 
 class SongController extends Controller
 {
@@ -32,8 +33,10 @@ class SongController extends Controller
         $song = Song::getById($id);
         $chords = Chord::getAll();
         $selectedChords = $this->arrayToJson($this->collectionToArrayOfIds($song->chords));
+        $tags = Tag::getAll();
+        $selectedTags = $this->arrayToJson($this->collectionToArrayOfIds($song->tags));
 
-        return view('songs.edit', ['song' => $song, 'chords' => $chords, 'selectedChords' => $selectedChords]);
+        return view('songs.edit', ['song' => $song, 'chords' => $chords, 'selectedChords' => $selectedChords, 'tags' => $tags, 'selectedTags' => $selectedTags]);
     }
 
     public function handleCreateSong(Request $request) {
@@ -44,9 +47,7 @@ class SongController extends Controller
             'tags' => 'required',
         ]);
 
-        // dd($request->chords);
-
-        $this->createSong($request->title, $request->description, $this->jsonToArray($request->chords));
+        $this->createSong($request->title, $request->description, $this->jsonToArray($request->chords), $this->jsonToArray($request->tags));
 
         return $this->viewSongsOverview();
     }
@@ -57,9 +58,10 @@ class SongController extends Controller
             'title' => 'required',
             'description' => 'required',
             'chords' => 'required',
+            'tags' => 'required',
         ]);
 
-        $this->updateSong($request->id, $request->title, $request->description, $this->jsonToArray($request->chords));
+        $this->updateSong($request->id, $request->title, $request->description, $this->jsonToArray($request->chords), $this->jsonToArray($request->tags));
 
         return $this->viewSongInfo($validated['id']);
     }
@@ -74,8 +76,8 @@ class SongController extends Controller
         return $this->viewSongsOverview();
     }
 
-    private function createSong(string $title, string $description, array $chords) : Song {
-        // dd($chords);
+    private function createSong(string $title, string $description, array $chordIds, array $tagIds) : Song {
+        // dd($chordIds);
 
         $newSong = Song::create([
             'title' => $title,
@@ -83,18 +85,24 @@ class SongController extends Controller
         ]);
 
         $chordSongController = new ChordSongController();
-        $chordSongController->createChordsOfSong($newSong->id, $chords);
+        $chordSongController->createChordsOfSong($newSong->id, $chordIds);
+
+        $songTagController = new SongTagController();
+        $songTagController->createTagsOfSong($newSong->id, $tagIds);
 
         return $newSong;
     }
 
-    private function updateSong(int $id, string $title, string $description, array $requestChords) {
+    private function updateSong(int $id, string $title, string $description, array $requestChords, array $tagIds) {
         $song = Song::getById($id);
 
         // dd($request->chords);
 
         $chordSongController = new ChordSongController();
         $chordSongController->updateChordsOfSong($song->id, $this->collectionToArrayOfIds($song->chords), $requestChords);
+
+        $songTagController = new SongTagController();
+        $songTagController->updateTagsOfSong($id, $this->collectionToArrayOfIds($song->tags), $tagIds);
 
         $song->updateValues($title, $description);
     }
@@ -104,6 +112,9 @@ class SongController extends Controller
 
         $chordSongController = new ChordSongController();
         $chordSongController->deleteChordsOfSong($song->id, $this->collectionToArrayOfIds($song->chords));
+
+        $songTagController = new SongTagController();
+        $songTagController->deleteAllTagsOfSong($id);
 
         $song->delete();
     }

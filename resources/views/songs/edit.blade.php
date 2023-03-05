@@ -6,6 +6,7 @@
 
     <x-slot:resources>
         @vite('resources/js/multiselect/chordsSelector.js')
+        @vite('resources/js/multiselect/tagsSelector.js')
     </x-slot>
 
     <x-layout.page-container pageTitle="Edit song">
@@ -59,6 +60,8 @@
                 </div>
 
                 <x-multiselect itemName="chords" :items="$chords" :selectedItems="$selectedChords" />
+
+                <x-multiselect itemName="tags" :items="$tags" :selectedItems="$selectedTags" />
                     
             </form>
         </x-layout.content-container>
