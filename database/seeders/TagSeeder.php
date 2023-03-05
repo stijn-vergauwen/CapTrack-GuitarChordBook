@@ -16,19 +16,19 @@ class TagSeeder extends Seeder
     public function run()
     {
         Tag::create([
-            'name' => 'Major chord'
+            'name' => 'Major'
         ]);
         
         Tag::create([
-            'name' => 'Minor chord'
+            'name' => 'Minor'
         ]);
 
         Tag::create([
-            'name' => 'Barre chord'
+            'name' => 'Barre'
         ]);
 
         Tag::create([
-            'name' => 'Open chord'
+            'name' => 'Open'
         ]);
     }
 }

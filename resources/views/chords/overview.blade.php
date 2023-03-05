@@ -16,7 +16,7 @@
 
             @foreach ($chords as $chord)
                 
-                <x-cards.chord :id="$chord->id" :name="$chord->name" :description="$chord->description"/>
+                <x-cards.chord :id="$chord->id" :name="$chord->name" :description="$chord->description" :tags="$chord->tags"/>
 
             @endforeach
 

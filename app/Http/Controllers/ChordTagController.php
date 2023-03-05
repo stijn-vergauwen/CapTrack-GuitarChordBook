@@ -25,7 +25,6 @@ class ChordTagController extends Controller
     }
 
     public function deleteAllTagsOfChord(int $chordId) {
-        // TODO: test if works
         $chordTagsToDelete = ChordTag::getByChordId($chordId);
         foreach($chordTagsToDelete as $chordTag) {
             $chordTag->delete();
