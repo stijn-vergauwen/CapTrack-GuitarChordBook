@@ -1,11 +1,12 @@
 <x-layout.base>
 
     <x-slot:title>
-        Create chord
+        Create song
     </x-slot>
 
     <x-slot:resources>
-        @vite('resources/js/chordsSelector.js')
+        @vite('resources/js/multiselect/chordsSelector.js')
+        @vite('resources/js/multiselect/tagsSelector.js')
     </x-slot>
 
     <x-layout.page-container pageTitle="Create song">
@@ -50,7 +51,9 @@
                     </div>
                 </div>
 
-                <x-multiselect.chords-selector :allChords="$allChords" />
+                <x-multiselect.chords-selector :allChords="$chords" />
+
+                <x-multiselect itemName="tags" :items="$tags" />
 
                 <div class="flex">
                     <div class="w-1/2">

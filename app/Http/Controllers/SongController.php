@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Song;
 use App\Models\Chord;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class SongController extends Controller
@@ -22,8 +23,9 @@ class SongController extends Controller
     
     public function viewSongCreator() {
         $chords = Chord::getAll();
+        $tags = Tag::getAll();
 
-        return view('songs.create', ['chords' => $chords]);
+        return view('songs.create', ['chords' => $chords, 'tags' => $tags]);
     }
 
     public function viewSongEditor(int $id) {
@@ -39,6 +41,7 @@ class SongController extends Controller
             'title' => 'required',
             'description' => 'required',
             'chords' => 'required',
+            'tags' => 'required',
         ]);
 
         // dd($request->chords);
