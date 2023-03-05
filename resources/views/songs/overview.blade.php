@@ -16,7 +16,7 @@
 
             @foreach ($songs as $song)
 
-                <x-cards.song :id="$song->id" :title="$song->title" :chords="$song->chords" />
+                <x-cards.song :id="$song->id" :title="$song->title" :chords="$song->chords" :tags="$song->tags" />
 
             @endforeach
 
