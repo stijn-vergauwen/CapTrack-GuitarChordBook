@@ -43,12 +43,12 @@ class ChordController extends Controller
             'name' => 'required',
             'description' => 'required',
             'strings' => 'required',
-            'tags' => 'required',
+            'tags' => '',
         ]);
 
         $this->createChord($request->name, $request->description, $request->strings, $this->jsonToArray($request->tags));
 
-        return $this->viewChordsOverview();
+        return redirect(route('chordsOverview'));
     }
 
     public function handleUpdateChord(Request $request) {
@@ -57,12 +57,12 @@ class ChordController extends Controller
             'name' => 'required',
             'description' => 'required',
             'strings' => 'required',
-            'tags' => 'required',
+            'tags' => '',
         ]);
 
         $this->updateChord($request->id, $request->name, $request->description, $request->strings, $this->jsonToArray($request->tags));
 
-        return $this->viewChordInfo($validated['id']);
+        return redirect(route('chordInfo', ['id' => $request->id]));
     }
 
     public function handleDeleteChord(Request $request) {
@@ -72,7 +72,7 @@ class ChordController extends Controller
 
         $this->deleteChord($request->id);
 
-        return $this->viewChordsOverview();
+        return redirect(route('chordsOverview'));
     }
 
     private function createChord(string $name, string $description, array $strings, array $tagIds) : Chord {

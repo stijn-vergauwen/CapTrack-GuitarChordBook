@@ -44,12 +44,12 @@ class SongController extends Controller
             'title' => 'required',
             'description' => 'required',
             'chords' => 'required',
-            'tags' => 'required',
+            'tags' => '',
         ]);
 
         $this->createSong($request->title, $request->description, $this->jsonToArray($request->chords), $this->jsonToArray($request->tags));
 
-        return $this->viewSongsOverview();
+        return redirect(route('songsOverview'));
     }
 
     public function handleUpdateSong(Request $request) {
@@ -58,12 +58,12 @@ class SongController extends Controller
             'title' => 'required',
             'description' => 'required',
             'chords' => 'required',
-            'tags' => 'required',
+            'tags' => '',
         ]);
 
         $this->updateSong($request->id, $request->title, $request->description, $this->jsonToArray($request->chords), $this->jsonToArray($request->tags));
 
-        return $this->viewSongInfo($validated['id']);
+        return redirect(route('songInfo', ['id' => $request->id]));
     }
 
     public function handleDeleteSong(Request $request) {
@@ -73,7 +73,7 @@ class SongController extends Controller
 
         $this->deleteSong($request->id);
 
-        return $this->viewSongsOverview();
+        return redirect(route('songsOverview'));
     }
 
     private function createSong(string $title, string $description, array $chordIds, array $tagIds) : Song {
