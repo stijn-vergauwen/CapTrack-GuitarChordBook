@@ -1,11 +1,12 @@
 <x-layout.base>
 
     <x-slot:title>
-        Create chord
+        Create song
     </x-slot>
 
     <x-slot:resources>
-        @vite('resources/js/chordsSelector.js')
+        @vite('resources/js/multiselect/chordsSelector.js')
+        @vite('resources/js/multiselect/tagsSelector.js')
     </x-slot>
 
     <x-layout.page-container pageTitle="Create song">
@@ -41,34 +42,18 @@
                                 <p class="border-2 px-2 py-1">Search</p>
         
                                 <div class="flex flex-col gap-2 mt-2">
-                                    <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">tag</p>
-                                    <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">tag</p>
-                                    <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">tag</p>
+                                    <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">artist</p>
+                                    <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">artist</p>
+                                    <p class="px-6 py-1 font-bold text-primary-600 bg-neutral-100">artist</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <x-multiselect.chords-selector :allChords="$allChords" />
+                <x-multiselect itemName="chords" :items="$chords" />
 
-                <div class="flex">
-                    <div class="w-1/2">
-                        <p class="font-bold">Select tags</p>
-                        <p class="border-2 px-2 py-1 w-40">Search</p>
-
-                        <div>
-                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
-                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
-                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
-                        </div>
-                    </div>
-
-                    <div class="w-1/2">
-                        <p class="font-bold">Current tags</p>
-
-                    </div>
-                </div>
+                <x-multiselect itemName="tags" :items="$tags" />
                     
             </form>
         </x-layout.content-container>

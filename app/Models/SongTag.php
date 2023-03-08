@@ -25,4 +25,8 @@ class SongTag extends Model
     public static function getByForeignIds(int $songId, int $tagId) {
         return SongTag::where('song_id', $songId)->where('tag_id', $tagId)->first();
     }
+
+    public static function getBySongId(int $songId) {
+        return SongTag::where('song_id', $songId)->get();
+    }
 }

@@ -22,7 +22,16 @@
 
                     <div>
                         <p class="font-bold">Tags</p>
-                        <p class="font-bold text-primary-600">Tag Tag Tag</p>
+
+                        <div class="inline-flex">
+                            @foreach ($song->tags as $tag)
+
+                                <a class="px-2 py-1 text-base font-bold text-primary-600 hover:text-primary-700 transition" href="#">
+                                    {{ $tag->name }}
+                                </a>
+
+                            @endforeach
+                        </div>
                     </div>
                     
                     <div>

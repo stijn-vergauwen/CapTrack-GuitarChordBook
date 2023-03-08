@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\Chord;
 use Illuminate\Http\Request;
 use App\Models\FingerPlacement;
 use App\Models\ChordFingerPlacement;
+use App\Http\Controllers\ChordTagController;
 use App\Http\Controllers\ChordFingerPlacementController;
 
 class ChordController extends Controller
@@ -23,13 +25,17 @@ class ChordController extends Controller
     }
     
     public function viewChordCreator() {
-        return view('chords.create');
+        $tags = Tag::getAll();
+
+        return view('chords.create', ['tags' => $tags]);
     }
 
     public function viewChordEditor(int $id) {
         $chord = Chord::getById($id);
+        $tags = Tag::getAll();
+        $selectedTags = $this->arrayToJson($this->collectionToArrayOfIds($chord->tags));
 
-        return view('chords.edit', ['chord' => $chord]);
+        return view('chords.edit', ['chord' => $chord, 'tags' => $tags, 'selectedTags' => $selectedTags]);
     }
 
     public function handleCreateChord(Request $request) {
@@ -37,11 +43,12 @@ class ChordController extends Controller
             'name' => 'required',
             'description' => 'required',
             'strings' => 'required',
+            'tags' => '',
         ]);
 
-        $this->createChord($request->name, $request->description, $request->strings);
+        $this->createChord($request->name, $request->description, $request->strings, $this->jsonToArray($request->tags));
 
-        return $this->viewChordsOverview();
+        return redirect(route('chordsOverview'));
     }
 
     public function handleUpdateChord(Request $request) {
@@ -50,11 +57,12 @@ class ChordController extends Controller
             'name' => 'required',
             'description' => 'required',
             'strings' => 'required',
+            'tags' => '',
         ]);
 
-        $this->updateChord($request->id, $request->name, $request->description, $request->strings);
+        $this->updateChord($request->id, $request->name, $request->description, $request->strings, $this->jsonToArray($request->tags));
 
-        return $this->viewChordInfo($validated['id']);
+        return redirect(route('chordInfo', ['id' => $request->id]));
     }
 
     public function handleDeleteChord(Request $request) {
@@ -64,10 +72,10 @@ class ChordController extends Controller
 
         $this->deleteChord($request->id);
 
-        return $this->viewChordsOverview();
+        return redirect(route('chordsOverview'));
     }
 
-    private function createChord(string $name, string $description, array $strings) : Chord {
+    private function createChord(string $name, string $description, array $strings, array $tagIds) : Chord {
         $newChord = Chord::create([
             'name' => $name,
             'description' => $description,
@@ -77,14 +85,20 @@ class ChordController extends Controller
             ChordFingerPlacementController::createChordFingerPlacement($placementData, $index, $newChord->id);
         }
 
+        $chordTagController = new ChordTagController();
+        $chordTagController->createTagsOfChord($newChord->id, $tagIds);
+
         return $newChord;
     }
 
-    private function updateChord(int $id, string $name, string $description, array $strings) {
+    private function updateChord(int $id, string $name, string $description, array $strings, array $tagIds) {
         $chord = Chord::getById($id);
         $chord->updateValues($name, $description);
         
         ChordFingerPlacementController::updateFingerPlacementOfChord($chord, $strings);
+
+        $chordTagController = new ChordTagController();
+        $chordTagController->updateTagsOfChord($id, $this->collectionToArrayOfIds($chord->tags), $tagIds);
     }
 
     private function deleteChord(int $id) {
@@ -94,6 +108,30 @@ class ChordController extends Controller
 
         // TODO: delete chordSong entries with this chord
 
+        $chordTagController = new ChordTagController();
+        $chordTagController->deleteAllTagsOfChord($id);
+
         $chord->delete();
+    }
+
+
+    // Utility
+
+    private function jsonToArray(string $inputJson) : array {
+        return json_decode($inputJson) ?? [];
+    }
+
+    private function arrayToJson(array $inputArray) : string {
+        return json_encode($inputArray);
+    }
+
+    private function collectionToArrayOfIds($inputCollection) : array {
+        $itemIds = [];
+
+        foreach($inputCollection as $item) {
+            array_push($itemIds, $item->id);
+        }
+
+        return $itemIds;
     }
 }

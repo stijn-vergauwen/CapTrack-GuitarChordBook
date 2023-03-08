@@ -5,7 +5,8 @@
     </x-slot>
 
     <x-slot:resources>
-        @vite('resources/js/chordsSelector.js')
+        @vite('resources/js/multiselect/chordsSelector.js')
+        @vite('resources/js/multiselect/tagsSelector.js')
     </x-slot>
 
     <x-layout.page-container pageTitle="Edit song">
@@ -58,25 +59,9 @@
                     </div>
                 </div>
 
-                <x-multiselect.chords-selector :allChords="$allChords" :selectedChords="$selectedChords" />
+                <x-multiselect itemName="chords" :items="$chords" :selectedItems="$selectedChords" />
 
-                <div class="flex">
-                    <div class="w-1/2">
-                        <p class="font-bold">Select tags</p>
-                        <p class="border-2 px-2 py-1 w-40">Search</p>
-
-                        <div>
-                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
-                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
-                            <p class="inline-block px-6 py-1 my-2 font-bold text-primary-600 bg-neutral-100">tag</p>
-                        </div>
-                    </div>
-
-                    <div class="w-1/2">
-                        <p class="font-bold">Current tags</p>
-
-                    </div>
-                </div>
+                <x-multiselect itemName="tags" :items="$tags" :selectedItems="$selectedTags" />
                     
             </form>
         </x-layout.content-container>
