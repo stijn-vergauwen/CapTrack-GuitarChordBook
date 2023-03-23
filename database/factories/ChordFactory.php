@@ -22,6 +22,7 @@ class ChordFactory extends Factory
         return [
             'name' => fake()->unique()->randomElement($chordArray),
             'description' => fake()->sentence(),
+            'view_count' => fake()->numberBetween(0, 20),
         ];
     }
 }

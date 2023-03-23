@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('songs', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('title');
             $table->string('description');
+            $table->integer('view_count')->default(0);
+            $table->timestamps();
         });
     }
 

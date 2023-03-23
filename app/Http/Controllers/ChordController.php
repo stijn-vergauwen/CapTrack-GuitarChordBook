@@ -20,6 +20,7 @@ class ChordController extends Controller
 
     public function viewChordInfo(int $id) {
         $chord = Chord::getById($id);
+        $chord->increaseViewCount();
 
         return view('chords.info', ['chord' => $chord]);
     }

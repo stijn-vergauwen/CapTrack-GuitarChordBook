@@ -15,7 +15,8 @@ class Chord extends Model
 
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'view_count'
     ];
 
     public function fingerPlacements() {
@@ -42,6 +43,13 @@ class Chord extends Model
         $this->name = $newName;
         $this->description = $newDescription;
 
+        $this->save();
+    }
+
+    public function increaseViewCount() {
+        if($this->updated_at > now()->subMinute()) return;
+
+        $this->view_count++;
         $this->save();
     }
 }

@@ -19,6 +19,7 @@ class SongFactory extends Factory
         return [
             'title' => fake()->sentence(2),
             'description' => fake()->sentence(),
+            'view_count' => fake()->numberBetween(0, 20),
         ];
     }
 }

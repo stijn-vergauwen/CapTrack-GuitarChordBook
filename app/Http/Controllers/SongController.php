@@ -18,6 +18,7 @@ class SongController extends Controller
 
     public function viewSongInfo(int $id) {
         $song = Song::getById($id);
+        $song->increaseViewCount();
 
         return view('songs.info', ['song' => $song]);
     }

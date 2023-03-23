@@ -13,7 +13,8 @@ class Song extends Model
 
     protected $fillable = [
         'title',
-        'description'
+        'description',
+        'view_count'
     ];
 
     public function chords() {
@@ -36,6 +37,13 @@ class Song extends Model
         $this->title = $newTitle;
         $this->description = $newDescription;
 
+        $this->save();
+    }
+
+    public function increaseViewCount() {
+        if($this->updated_at > now()->subMinute()) return;
+
+        $this->view_count++;
         $this->save();
     }
 }
